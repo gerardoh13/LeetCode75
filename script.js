@@ -45,3 +45,17 @@ function findDifference(nums1, nums2) {
   res[1] = setTwo.size ? Array.from(setTwo) : [];
   return res;
 }
+
+// 334. Increasing Triplet Subsequence
+
+function increasingTriplet(nums) {
+  let i = Infinity;
+  let j = Infinity;
+  debugger;
+  for (let idx = 0; idx < nums.length; idx++) {
+    if (nums[idx] <= i) i = nums[idx];
+    else if (nums[idx] <= j) j = nums[idx];
+    else return true;
+  }
+  return false;
+}
