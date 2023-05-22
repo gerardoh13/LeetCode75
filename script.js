@@ -59,3 +59,15 @@ function increasingTriplet(nums) {
   }
   return false;
 }
+
+// 1207. Unique Number of Occurrences
+
+function uniqueOccurrences(arr) {
+  let freq = {};
+  for (let num of arr) {
+    freq[num] = freq[num] + 1 || 1;
+  }
+  let countArr = Object.values(freq);
+  let countSet = new Set(countArr);
+  return countArr.length === countSet.size;
+}
