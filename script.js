@@ -71,3 +71,34 @@ function uniqueOccurrences(arr) {
   let countSet = new Set(countArr);
   return countArr.length === countSet.size;
 }
+
+// 206. Reverse Linked List
+
+function reverseList(head) {
+  if (!head) return head;
+  let vals = [];
+  let curr = head;
+  while (curr.next) {
+    vals.push(curr.val);
+    curr = curr.next;
+  }
+  vals.push(curr.val);
+  curr = head;
+  while (curr.next) {
+    curr.val = vals.pop();
+    curr = curr.next;
+  }
+  curr.val = vals.pop();
+  return head;
+}
+
+// 700. Search in a Binary Search Tree
+
+function searchBST(root, val) {
+  let curr = root;
+  while (curr) {
+    if (curr.val === val) return curr;
+    else curr = curr.val < val ? curr.right : curr.left;
+  }
+  return null;
+}
