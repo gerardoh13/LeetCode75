@@ -114,3 +114,18 @@ function searchBST(root, val) {
   }
   return null;
 }
+
+// 374. Guess Number Higher or Lower
+
+function guessNumber(n) {
+  let start = 1;
+  let end = n;
+  if (n === start) return n;
+  while (true) {
+    let mid = Math.floor((start + end) / 2);
+    let currGuess = guess(mid);
+    if (!currGuess) return mid;
+    else if (currGuess === -1) end = mid - 1;
+    else if (currGuess === 1) start = mid + 1;
+  }
+}
