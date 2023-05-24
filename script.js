@@ -20,6 +20,18 @@ function mergeAlternately(word1, word2) {
   }
   return res;
 }
+
+// 1431. Kids With the Greatest Number of Candies
+
+function kidsWithCandies(candies, extraCandies) {
+  let max = Math.max(...candies);
+  let res = [];
+  for (let i = 0; i < candies.length; i++) {
+    res.push(candies[i] + extraCandies >= max);
+  }
+  return res;
+}
+
 // 1732. Find the Highest Altitude
 
 function largestAltitude(gain) {
