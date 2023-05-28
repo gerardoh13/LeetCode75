@@ -169,3 +169,19 @@ function minCostClimbingStairs(cost) {
   console.log(cost);
   return Math.min(cost[0], cost[1]);
 }
+
+// 1137. N-th Tribonacci Number
+
+function tribonacci(n) {
+  let t = [1, 1, 2];
+  if (n < 4) return t[n - 1];
+  n = n - 3;
+  while (n > 0) {
+    const sum = t.reduce((prev, curr) => prev + curr, 0);
+    t.shift();
+    t.push(sum);
+    n--;
+  }
+  return t[2];
+}
+
