@@ -32,6 +32,27 @@ function kidsWithCandies(candies, extraCandies) {
   return res;
 }
 
+// 345. Reverse Vowels of a String
+
+function reverseVowels(s) {
+  s = s.split("");
+  let i = 0;
+  let j = s.length - 1;
+  debugger;
+  while (i <= j) {
+    while (i < j && !vowelTest(s[i])) i++;
+    while (i < j && !vowelTest(s[j])) j--;
+    [s[i], s[j]] = [s[j], s[i]];
+    i++;
+    j--;
+  }
+  return s.join("");
+}
+
+function vowelTest(s) {
+  return /^[aeiou]$/i.test(s);
+}
+
 // 1732. Find the Highest Altitude
 
 function largestAltitude(gain) {
@@ -184,4 +205,3 @@ function tribonacci(n) {
   }
   return t[2];
 }
-
