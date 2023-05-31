@@ -205,3 +205,10 @@ function tribonacci(n) {
   }
   return t[2];
 }
+
+// 151. Reverse Words in a String
+
+function reverseWords(s) {
+  s = s.replace(/\s+/g, " ").trim();
+  return s.split(" ").reverse().join(" ");
+}
