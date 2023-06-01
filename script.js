@@ -212,3 +212,20 @@ function reverseWords(s) {
   s = s.replace(/\s+/g, " ").trim();
   return s.split(" ").reverse().join(" ");
 }
+
+// 238. Product of Array Except Self
+
+function productExceptSelf(nums) {
+  let res = new Array(nums.length).fill(1);
+  let product = 1;
+  for (let i = 0; i < nums.length; i++) {
+    res[i] *= product;
+    product *= nums[i];
+  }
+  product = 1;
+  for (let j = nums.length - 1; j >= 0; j--) {
+    res[j] *= product;
+    product *= nums[j];
+  }
+  return res;
+}
