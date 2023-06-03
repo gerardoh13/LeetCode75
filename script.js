@@ -245,3 +245,20 @@ function moveZeroes(nums) {
     i++;
   }
 }
+
+// 11. Container With Most Water
+
+function maxArea(height) {
+  let i = 0;
+  let j = height.length - 1;
+  let max = 0;
+  debugger;
+  while (i < j) {
+    let area = Math.min(height[i], height[j]) * (j - i);
+    if (area > max) max = area;
+    if (height[i] < height[j]) {
+      i++;
+    } else j--;
+  }
+  return max;
+}
