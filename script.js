@@ -265,8 +265,8 @@ function maxArea(height) {
 
 // 933. Number of Recent Calls
 
-var RecentCounter = function() {
-  this.q = []
+var RecentCounter = function () {
+  this.q = [];
 };
 
 RecentCounter.prototype.ping = function (t) {
@@ -277,3 +277,17 @@ RecentCounter.prototype.ping = function (t) {
 
   return this.q.length;
 };
+
+// 2390. Removing Stars From a String
+
+function removeStars(s) {
+  let res = [];
+  debugger;
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] !== "*") res.push(s[i]);
+    else res.pop();
+  }
+  return res.join("");
+}
+
+console.log(removeStars("leet**cod*e"));
