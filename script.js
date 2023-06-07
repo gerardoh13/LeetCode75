@@ -290,4 +290,16 @@ function removeStars(s) {
   return res.join("");
 }
 
-console.log(removeStars("leet**cod*e"));
+// 198. House Robber
+
+function rob(nums) {
+  if (nums.length <= 2) return Math.max(...nums);
+  let [maxOne, maxTwo] = [Math.max(nums[0], nums[1]), nums[0]];
+  for (let i = 2; i < nums.length; i++) {
+    let curr = Math.max(nums[i] + maxTwo, maxOne);
+    maxTwo = maxOne;
+    maxOne = curr;
+  }
+  return maxOne;
+}
+
