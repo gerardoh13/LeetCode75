@@ -303,3 +303,24 @@ function rob(nums) {
   return maxOne;
 }
 
+// 1679. Max Number of K-Sum Pairs
+
+function maxOperations(nums, k) {
+  let res = 0;
+  let freq = {};
+  for (let num of nums) {
+    if (num < k) freq[num] = freq[num] + 1 || 1;
+  }
+  if (k % 2 === 0 && freq[k / 2]) {
+    res += Math.floor(freq[k / 2] / 2);
+    delete freq[k / 2];
+  }
+  for (let val in freq) {
+    if (freq[k - val]) {
+      res += Math.min(freq[val], freq[k - val]);
+      delete freq[val];
+    }
+  }
+  return res;
+}
+
