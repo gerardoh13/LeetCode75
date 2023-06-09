@@ -324,3 +324,17 @@ function maxOperations(nums, k) {
   return res;
 }
 
+// 1004. Max Consecutive Ones III
+
+function longestOnes(nums, k) {
+  let j = 0;
+  for (let num of nums) {
+    if (!num) k--;
+    if (k < 0) {
+      if (!nums[j]) k++;
+      j++;
+    }
+  }
+  return nums.length - j;
+}
+
