@@ -338,3 +338,22 @@ function longestOnes(nums, k) {
   return nums.length - j;
 }
 
+// 643. Maximum Average Subarray I
+
+function findMaxAverage(nums, k) {
+  let res = -Infinity;
+  let j = k;
+  let curr = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (k) {
+      k--;
+      curr += nums[i];
+    } else {
+      if (curr > res) res = curr;
+      curr += nums[i];
+      curr -= nums[i - j];
+    }
+  }
+  if (curr > res) res = curr;
+  return res / k;
+}
