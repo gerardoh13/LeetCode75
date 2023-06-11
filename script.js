@@ -357,3 +357,18 @@ function findMaxAverage(nums, k) {
   if (curr > res) res = curr;
   return res / k;
 }
+
+// 1493. Longest Subarray of 1's After Deleting One Element
+
+function longestSubarray(nums) {
+  let j = 0;
+  let k = 1;
+  for (let num of nums) {
+    if (!num) k--;
+    if (k < 0) {
+      if (!nums[j]) k++;
+      j++;
+    }
+  }
+  return nums.length - (j + 1);
+}
