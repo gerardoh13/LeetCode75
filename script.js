@@ -372,3 +372,16 @@ function longestSubarray(nums) {
   }
   return nums.length - (j + 1);
 }
+
+// 338. Counting Bits
+
+function countBits(n) {
+  if (!n) return [0];
+  let res = [0, 1];
+  for (let i = 2; i <= n; i++) {
+    let binary = i.toString(2);
+    binary = binary.replaceAll("0", "");
+    res.push(binary.length ? binary.length : 0);
+  }
+  return res;
+}
