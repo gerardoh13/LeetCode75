@@ -385,3 +385,16 @@ function countBits(n) {
   }
   return res;
 }
+
+// 136. Single Number
+
+function singleNumber(nums) {
+  if (nums.length === 1) return nums[0];
+  let obj = {};
+  for (let num of nums) {
+    if (obj[num]) delete obj[num];
+    else obj[num] = 1;
+  }
+  let res = Object.keys(obj)[0];
+  return parseInt(res);
+}
