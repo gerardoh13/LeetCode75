@@ -398,3 +398,16 @@ function singleNumber(nums) {
   let res = Object.keys(obj)[0];
   return parseInt(res);
 }
+
+// 104. Maximum Depth of Binary Tree
+
+function maxDepth(root) {
+  if (!root) return 0;
+  function recursion(node) {
+    if (!node.right && !node.left) return 1;
+    if (!node.right) return recursion(node.left) + 1;
+    if (!node.left) return recursion(node.right) + 1;
+    return Math.max(recursion(node.right), recursion(node.left)) + 1;
+  }
+  return recursion(root);
+}
