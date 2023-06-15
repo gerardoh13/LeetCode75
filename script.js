@@ -411,3 +411,20 @@ function maxDepth(root) {
   }
   return recursion(root);
 }
+
+// 328. Odd Even Linked List
+
+function oddEvenList(head) {
+  if (!head || !head.next) return head;
+  let o = head;
+  let e = o.next;
+  let fe = e;
+  while (e && e.next) {
+    o.next = e.next;
+    o = o.next;
+    e.next = o.next;
+    e = e.next;
+  }
+  o.next = fe;
+  return head;
+}
