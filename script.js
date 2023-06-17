@@ -428,3 +428,27 @@ function oddEvenList(head) {
   o.next = fe;
   return head;
 }
+
+// 1456. Maximum Number of Vowels in a Substring of Given Length
+
+function maxVowels(s, k) {
+  let v = new Set(["a", "e", "i", "o", "u"]);
+  let res = 0;
+  let i = 0;
+  let j = 0;
+  let m = new Map();
+  while (k > 0) {
+    if (v.has(s[j])) m.set(j, s[j]);
+    j++;
+    k--;
+  }
+  debugger;
+  while (j < s.length) {
+    res = Math.max(res, m.size);
+    if (v.has(s[j])) m.set(j, s[j]);
+    m.delete(i);
+    i++;
+    j++;
+  }
+  return m;
+}
