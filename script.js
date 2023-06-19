@@ -442,7 +442,6 @@ function maxVowels(s, k) {
     j++;
     k--;
   }
-  debugger;
   while (j < s.length) {
     res = Math.max(res, m.size);
     if (v.has(s[j])) m.set(j, s[j]);
@@ -451,4 +450,39 @@ function maxVowels(s, k) {
     j++;
   }
   return m;
+}
+
+//
+
+// function gcdOfStrings(str1, str2){
+//   let res = ""
+//   if (str1[0] !== str2[0]) return res
+
+// }
+
+// console.log(gcdOfStrings("ABCABC", "ABC"))
+
+// 443. String Compression
+
+function compress(chars) {
+  if (!chars.length) return 0;
+  let j = 0;
+  let curr = chars[0];
+  let count = 1;
+  for (let i = 1; i <= chars.length; i++) {
+    if (chars[i] === curr) count++;
+    else {
+      chars[j] = curr;
+      if (count > 1) {
+        const s = count.toString();
+        for (let k = 0; k < s.length; k++) {
+          chars[++j] = s[k];
+        }
+      }
+      j++;
+      curr = chars[i];
+      count = 1;
+    }
+  }
+  return j;
 }
