@@ -486,3 +486,24 @@ function compress(chars) {
   }
   return j;
 }
+
+// 1657. Determine if Two Strings Are Close
+
+function closeStrings(word1, word2) {
+  if (word1.length !== word2.length) return false;
+  let [vals1, keys1] = freqCounter(word1);
+  let [vals2, keys2] = freqCounter(word2);
+  let valsEq = vals1 === vals2;
+  let keysEq = keys1 === keys2;
+  return valsEq && keysEq;
+}
+
+function freqCounter(str) {
+  let freq = {};
+  for (let char of str) {
+    freq[char] = freq[char] + 1 || 1;
+  }
+  let vals = Object.values(freq).sort().join("");
+  let keys = Object.keys(freq).sort().join("");
+  return [vals, keys];
+}
