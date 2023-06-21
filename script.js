@@ -507,3 +507,29 @@ function freqCounter(str) {
   let keys = Object.keys(freq).sort().join("");
   return [vals, keys];
 }
+
+// 2352. Equal Row and Column Pairs
+
+function equalPairs(grid) {
+  const cols = new Map();
+  const rows = new Map();
+  let rowHash, colHash;
+  let res = 0;
+  for (let i = 0; i < grid.length; i++) {
+    let rowNums = grid[i];
+    let colNums = [];
+    for (let j = 0; j < grid[i].length; j++) {
+      colNums.push(grid[j][i]);
+    }
+    rowHash = rowNums.join(",");
+    colHash = colNums.join(",");
+    rows.set(rowHash, rows.get(rowHash) + 1 || 1);
+    cols.set(colHash, cols.get(colHash) + 1 || 1);
+  }
+  for (const [row, val] of rows) {
+    if (cols.has(row)) {
+      res += val * cols.get(row);
+    }
+  }
+  return res;
+}
