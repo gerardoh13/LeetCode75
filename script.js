@@ -569,3 +569,29 @@ function deleteMiddle(head) {
   curr.next = curr.next.next;
   return head;
 }
+
+// 2130. Maximum Twin Sum of a Linked List
+
+function pairSum(head) {
+  let len = 1;
+  let curr = head;
+  let res = 0;
+  while (curr.next) {
+    len++;
+    curr = curr.next;
+  }
+  let m = new Map();
+  curr = head;
+  let i = 0;
+  while (i < len) {
+    let p = len - 1 - i;
+    if (m.has(p)) {
+      res = Math.max(res, m.get(p) + curr.val);
+    } else {
+      m.set(i, curr.val);
+    }
+    i++;
+    curr = curr.next;
+  }
+  return res;
+}
