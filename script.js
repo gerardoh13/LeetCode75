@@ -550,4 +550,22 @@ function numTilings(n) {
   return dp[n];
 }
 
-console.log(numTilings(4));
+// 2095. Delete the Middle Node of a Linked List
+
+function deleteMiddle(head) {
+  let len = 0;
+  let curr = head;
+  while (curr.next) {
+    len++;
+    curr = curr.next;
+  }
+  if (!len) return null;
+  curr = head;
+  let mid = Math.ceil(len / 2);
+  while (mid > 1) {
+    curr = curr.next;
+    mid--;
+  }
+  curr.next = curr.next.next;
+  return head;
+}
