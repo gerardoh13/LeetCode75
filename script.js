@@ -595,3 +595,27 @@ function pairSum(head) {
   }
   return res;
 }
+
+//
+
+// function asteroidCollision(a){
+//   let res = []
+//   for (let i = 0; i < a.length; i++){
+
+//   }
+// }
+
+function eraseOverlapIntervals(intervals) {
+  intervals.sort((a, b) => a[1] - b[1]);
+  let res = 0;
+  let [i, j] = [0, 1];
+  while (j < intervals.length) {
+    let prevEnd = intervals[i][1];
+    let currStart = intervals[j][0];
+    if (prevEnd > currStart) res++;
+    else i = j;
+    j++;
+  }
+  return res;
+}
+
