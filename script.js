@@ -452,16 +452,6 @@ function maxVowels(s, k) {
   return m;
 }
 
-//
-
-// function gcdOfStrings(str1, str2){
-//   let res = ""
-//   if (str1[0] !== str2[0]) return res
-
-// }
-
-// console.log(gcdOfStrings("ABCABC", "ABC"))
-
 // 443. String Compression
 
 function compress(chars) {
@@ -596,14 +586,7 @@ function pairSum(head) {
   return res;
 }
 
-//
-
-// function asteroidCollision(a){
-//   let res = []
-//   for (let i = 0; i < a.length; i++){
-
-//   }
-// }
+// 435. Non-overlapping Intervals
 
 function eraseOverlapIntervals(intervals) {
   intervals.sort((a, b) => a[1] - b[1]);
@@ -619,3 +602,17 @@ function eraseOverlapIntervals(intervals) {
   return res;
 }
 
+// 452. Minimum Number of Arrows to Burst Balloons
+
+function findMinArrowShots(points) {
+  points.sort((a, b) => a[1] - b[1]);
+  let res = 1;
+  let currEnd = points[0][1];
+  for (let [s, e] of points) {
+    if (s > currEnd) {
+      currEnd = e;
+      res++;
+    }
+  }
+  return res;
+}
