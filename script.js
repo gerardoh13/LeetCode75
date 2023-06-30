@@ -620,7 +620,16 @@ function findMinArrowShots(points) {
 // 17. Letter Combinations of a Phone Number
 
 function letterCombinations3(digits) {
-  if (!digits.length) return []
+  if (!digits.length) return [];
+  let m = new Map();
+  m.set("2", ["a", "b", "c"]);
+  m.set("3", ["d", "e", "f"]);
+  m.set("4", ["g", "h", "i"]);
+  m.set("5", ["j", "k", "l"]);
+  m.set("6", ["m", "n", "o"]);
+  m.set("7", ["p", "q", "r", "s"]);
+  m.set("8", ["t", "u", "v"]);
+  m.set("9", ["w", "x", "y", "z"]);
   let res = m.get(digits[0]);
   if (digits.length === 1) return [...res];
   for (let i = 1; i < digits.length; i++) {
@@ -638,12 +647,17 @@ function letterCombinations3(digits) {
   return res;
 }
 
-let m = new Map();
-m.set("2", ["a", "b", "c"]);
-m.set("3", ["d", "e", "f"]);
-m.set("4", ["g", "h", "i"]);
-m.set("5", ["j", "k", "l"]);
-m.set("6", ["m", "n", "o"]);
-m.set("7", ["p", "q", "r", "s"]);
-m.set("8", ["t", "u", "v"]);
-m.set("9", ["w", "x", "y", "z"]);
+// 739. Daily Temperatures
+
+var dailyTemperatures = function (temp) {
+  const res = Array(temp.length).fill(0);
+  let stk = [];
+  for (let i = 0; i < temp.length; i++) {
+    while (stk.length > 0 && temp[i] > temp[stk[stk.length - 1]]) {
+      const idx = stk.pop();
+      res[idx] = i - idx;
+    }
+    stk.push(i);
+  }
+  return res;
+};
