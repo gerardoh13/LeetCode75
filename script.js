@@ -661,3 +661,22 @@ var dailyTemperatures = function (temp) {
   }
   return res;
 };
+
+// 216. Combination Sum III
+
+function combinationSum3(k, n) {
+  const res = [];
+
+  function backtrack(arr, sum, start) {
+    if (sum > n) return;
+    if (arr.length === k) {
+      if (sum === n) res.push(arr);
+      return;
+    }
+    for (let i = start; i < 10; i++) {
+      backtrack([...arr, i], sum + i, i + 1);
+    }
+  }
+  backtrack([], 0, 1);
+  return res;
+}
