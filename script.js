@@ -680,3 +680,38 @@ function combinationSum3(k, n) {
   backtrack([], 0, 1);
   return res;
 }
+
+// 735. Asteroid Collision
+
+function asteroidCollision(ast) {
+  let stack = [];
+  for (let i = 0; i < ast.length; i++) {
+    const item = ast[i];
+    if (!stack.length) {
+      stack.push(item);
+      continue;
+    }
+    let stackTop = stack[stack.length - 1];
+    if (stackTop > 0) {
+      if (item > 0) {
+        stack.push(item);
+        continue;
+      } else {
+        let absOfAst = -item;
+        while (
+          stack[stack.length - 1] > 0 &&
+          absOfAst > stack[stack.length - 1] &&
+          stack.length
+        ) {
+          stack.pop();
+        }
+        if (!stack.length) stack.push(item);
+        else if (stack[stack.length - 1] < 0) stack.push(item);
+        else if (stack[stack.length - 1] === absOfAst) stack.pop();
+      }
+    } else {
+      stack.push(item);
+    }
+  }
+  return stack;
+}
