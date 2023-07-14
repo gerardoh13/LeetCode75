@@ -715,3 +715,30 @@ function asteroidCollision(ast) {
   }
   return stack;
 }
+
+// 394. Decode String
+
+function decodeString(s) {
+  if (s.length === 1) {
+    if (Number.isInteger(+s)) return "";
+    else return s;
+  }
+  const stack = [];
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === "]") {
+      let str = "";
+      while (true) {
+        const char = stack.pop();
+        if (char === "[") break;
+        str = char + str;
+      }
+      let n = "";
+      while (Number.isInteger(+stack[stack.length - 1])) {
+        const number = stack.pop();
+        n = number + n;
+      }
+      stack.push(str.repeat(+n));
+    } else stack.push(s[i]);
+  }
+  return stack.join("");
+}
