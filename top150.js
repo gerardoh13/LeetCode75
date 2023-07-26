@@ -48,3 +48,18 @@ function removeElement(nums, val) {
   }
   return nums.length;
 }
+
+// 88. Merge Sorted Array
+
+function merge(nums1, m, nums2, n) {
+  c = 0;
+  for (let i = 0; i < m; i++) {
+    nums1[i] = nums1[i];
+    c++;
+  }
+  for (let j = 0; j < n; j++) {
+    nums1[c] = nums2[j];
+    c++;
+  }
+  nums1 = nums1.sort((a, b) => a - b);
+}
