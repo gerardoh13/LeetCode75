@@ -63,3 +63,22 @@ function merge(nums1, m, nums2, n) {
   }
   nums1 = nums1.sort((a, b) => a - b);
 }
+
+// 54. Spiral Matrix
+
+function spiralOrder(matrix) {
+  if (matrix[0].length === 1) return matrix.flat();
+  let maxLength = matrix.length * matrix[0].length;
+  let res = [];
+  while (matrix.length) {
+    res = [...res, ...matrix.shift()];
+    if (!matrix.length || res.length > maxLength) break;
+    res = [...res, ...matrix.map((row) => row.pop())];
+    if (!matrix.length || res.length > maxLength) break;
+    res = [...res, ...matrix.pop().reverse()];
+    if (!matrix.length || res.length > maxLength) break;
+    res = [...res, ...matrix.map((row) => row.shift()).reverse()];
+    if (!matrix.length || res.length > maxLength) break;
+  }
+  return res.slice(0, maxLength);
+}
