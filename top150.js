@@ -82,3 +82,15 @@ function spiralOrder(matrix) {
   }
   return res.slice(0, maxLength);
 }
+
+// 169. Majority Element
+
+function majorityElement(nums) {
+  let res = nums[0];
+  let freq = { [res]: 1 };
+  for (let i = 1; i < nums.length; i++) {
+    freq[nums[i]] = freq[nums[i]] + 1 || 1;
+    if (freq[nums[i]] > freq[res]) res = nums[i];
+  }
+  return res;
+}
