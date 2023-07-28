@@ -94,3 +94,34 @@ function majorityElement(nums) {
   }
   return res;
 }
+
+// 380. Insert Delete GetRandom O(1)
+
+class RandomizedSet {
+  constructor() {
+    this.rs = new Set();
+  }
+  /**
+   * @param {number} val
+   * @return {boolean}
+   */
+  insert(val) {
+    let size = this.rs.size;
+    this.rs.add(val);
+    return this.rs.size > size;
+  }
+  /**
+   * @param {number} val
+   * @return {boolean}
+   */
+  remove(val) {
+    return this.rs.delete(val);
+  }
+  /**
+   * @return {number}
+   */
+  getRandom(val) {
+    let nums = Array.from(this.rs);
+    return nums[Math.floor(Math.random() * nums.length)];
+  }
+}
