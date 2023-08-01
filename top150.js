@@ -125,3 +125,23 @@ class RandomizedSet {
     return nums[Math.floor(Math.random() * nums.length)];
   }
 }
+
+// 383. Ransom Note
+
+function canConstruct(ransomNote, magazine) {
+  let freq1 = freqCounter(ransomNote);
+  let freq2 = freqCounter(magazine);
+  for (let key in freq1) {
+    if (!freq2[key]) return false;
+    if (freq1[key] > freq2[key]) return false;
+  }
+  return true;
+}
+
+function freqCounter(str) {
+  let obj = {};
+  for (let char of str) {
+    obj[char] = obj[char] + 1 || 1;
+  }
+  return obj;
+}
