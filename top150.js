@@ -145,3 +145,14 @@ function freqCounter(str) {
   }
   return obj;
 }
+
+//1. Two Sum
+
+function twoSum(nums, target) {
+  let obj = {}
+  for (let i = 0; i < nums.length; i++){
+    let targetVal = target - nums[i]
+    if (obj[targetVal] !== undefined) return [obj[targetVal], i]
+    obj[nums[i]] = i
+  }
+};
