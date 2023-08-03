@@ -149,10 +149,21 @@ function freqCounter(str) {
 //1. Two Sum
 
 function twoSum(nums, target) {
-  let obj = {}
-  for (let i = 0; i < nums.length; i++){
-    let targetVal = target - nums[i]
-    if (obj[targetVal] !== undefined) return [obj[targetVal], i]
-    obj[nums[i]] = i
+  let obj = {};
+  for (let i = 0; i < nums.length; i++) {
+    let targetVal = target - nums[i];
+    if (obj[targetVal] !== undefined) return [obj[targetVal], i];
+    obj[nums[i]] = i;
   }
-};
+}
+
+// 189. Rotate Array
+
+function rotate(nums, k) {
+  if (nums.length === 2) {
+    if (k % 2 === 0) return nums;
+    else return nums.reverse();
+  }
+  let left = nums.splice(nums.length - k, k);
+  nums.splice(0, 0, ...left);
+}
