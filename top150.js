@@ -167,3 +167,24 @@ function rotate(nums, k) {
   let left = nums.splice(nums.length - k, k);
   nums.splice(0, 0, ...left);
 }
+
+// 42. Valid Anagram
+
+function isAnagram(s, t) {
+  if (s.length !== t.length) return false;
+  let freq1 = freqCounter(s);
+  let freq2 = freqCounter(t);
+  for (let key in freq1) {
+    if (!freq2[key]) return false;
+    if (freq1[key] !== freq2[key]) return false;
+  }
+  return true;
+};
+
+function freqCounter(str) {
+  let obj = {};
+  for (let char of str) {
+    obj[char] = obj[char] + 1 || 1;
+  }
+  return obj;
+}
