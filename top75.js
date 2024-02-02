@@ -21,6 +21,24 @@ function mergeAlternately(word1, word2) {
   return res;
 }
 
+// 1071. Greatest Common Divisor of Strings
+
+function gcdOfStrings(str1, str2) {
+  if (str1 + str2 !== str2 + str1) return "";
+  if (str1 === str2) return str1;
+  let gcd = gcd(str1.length, str2.length)
+  return str1.slice(0, gcd)
+}
+
+function gcd(a, b) {
+  while (b !== 0) {
+      const temp = b;
+      b = a % b;
+      a = temp;
+  }
+  return a;
+}
+
 // 1431. Kids With the Greatest Number of Candies
 
 function kidsWithCandies(candies, extraCandies) {
@@ -32,13 +50,25 @@ function kidsWithCandies(candies, extraCandies) {
   return res;
 }
 
+// 605. Can Place Flowers
+
+function canPlaceFlowers(flowerbed, n) {
+  for (let i = 0; i < flowerbed.length; i++) {
+    if (flowerbed[i - 1] != 1 && flowerbed[i] === 0 && flowerbed[i + 1] != 1) {
+      flowerbed[i] = 1;
+      n--;
+      if (n <= 0) return true;
+    }
+  }
+  return n <= 0;
+}
+
 // 345. Reverse Vowels of a String
 
 function reverseVowels(s) {
   s = s.split("");
   let i = 0;
   let j = s.length - 1;
-  debugger;
   while (i <= j) {
     while (i < j && !vowelTest(s[i])) i++;
     while (i < j && !vowelTest(s[j])) j--;
@@ -84,7 +114,6 @@ function findDifference(nums1, nums2) {
 function increasingTriplet(nums) {
   let i = Infinity;
   let j = Infinity;
-  debugger;
   for (let idx = 0; idx < nums.length; idx++) {
     if (nums[idx] <= i) i = nums[idx];
     else if (nums[idx] <= j) j = nums[idx];
@@ -168,19 +197,6 @@ function pivotIndex(arr) {
   return -1;
 }
 
-// 605. Can Place Flowers
-
-function canPlaceFlowers(flowerbed, n) {
-  for (let i = 0; i < flowerbed.length; i++) {
-    if (flowerbed[i - 1] != 1 && flowerbed[i] === 0 && flowerbed[i + 1] != 1) {
-      flowerbed[i] = 1;
-      n--;
-      if (n <= 0) return true;
-    }
-  }
-  return n <= 0;
-}
-
 // 746. Min Cost Climbing Stairs
 
 function minCostClimbingStairs(cost) {
@@ -252,7 +268,6 @@ function maxArea(height) {
   let i = 0;
   let j = height.length - 1;
   let max = 0;
-  debugger;
   while (i < j) {
     let area = Math.min(height[i], height[j]) * (j - i);
     if (area > max) max = area;
@@ -282,7 +297,6 @@ RecentCounter.prototype.ping = function (t) {
 
 function removeStars(s) {
   let res = [];
-  debugger;
   for (let i = 0; i < s.length; i++) {
     if (s[i] !== "*") res.push(s[i]);
     else res.pop();
