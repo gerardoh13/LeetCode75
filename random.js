@@ -224,3 +224,23 @@ function getIntersectionNode(headA, headB) {
   if (headB.seen) return headB;
   return null;
 }
+
+// 5. Longest Palindromic Substring
+
+function longestPalindrome(s) {
+  let res = "";
+  function expand(l, r) {
+    while (l >= 0 && r < s.length) {
+      if (s[l] !== s[r]) break;
+      let pal = s.substring(l, r + 1);
+      if (pal.length > res.length) res = pal;
+      l--;
+      r++;
+    }
+  }
+  for (let i = 0; i < s.length; i++) {
+    expand(i, i);
+    expand(i, i + 1);
+  }
+  return res;
+}
