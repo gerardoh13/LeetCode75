@@ -1,7 +1,6 @@
 // 15. 3Sum
 function threeSum(nums) {
   let res = [];
-  if (nums.lenth > 3) return res;
   if (nums.length === 3 && nums.reduce((a, c) => a + c, 0) === 0) return [nums];
   nums.sort((a, b) => a - b);
   let i = 0;
@@ -244,3 +243,237 @@ function longestPalindrome(s) {
   }
   return res;
 }
+
+// 100. Same Tree
+
+function isSameTree(p, q) {
+  let pStack = [p];
+  let qStack = [q];
+
+  while (pStack.length) {
+    let currP = pStack.pop();
+    let currQ = qStack.pop();
+    if (currP && currQ) {
+      if (currP.val !== currQ.val) return false;
+      for (let node of [currP.left, currP.right]) {
+        pStack.push(node);
+      }
+      for (let node of [currQ.left, currQ.right]) {
+        qStack.push(node);
+      }
+    } else if (!currP && !currQ) continue;
+    else return false;
+  }
+  if (qStack.length) return false;
+  return true;
+}
+
+// 18. 4Sum
+
+function fourSum(nums, target) {
+  let res = [];
+  if (nums.length === 4 && nums.reduce((a, c) => a + c, 0) === target)
+    return [nums];
+  nums.sort((a, b) => a - b);
+  for (let i = 0; i < nums.length - 3; i++) {
+    for (let j = i + 1; j < nums.length - 2; j++) {
+      let l = j + 1;
+      let r = nums.length - 1;
+      while (l < r) {
+        let sum = nums[i] + nums[j] + nums[l] + nums[r];
+        if (sum < target) l++;
+        else if (sum > target) r--;
+        else {
+          res.push([nums[i], nums[j], nums[l], nums[r]]);
+          let lastL = nums[l];
+          let lastR = nums[r];
+          while (nums[l] === lastL) l++;
+          while (nums[r] === lastR) r--;
+        }
+      }
+      while (nums[j] === nums[j + 1]) j++;
+    }
+    while (nums[i] === nums[i + 1]) i++;
+  }
+  return res;
+}
+
+// 59. Spiral Matrix II
+
+function generateMatrix(n) {
+  if (n === 1) return [[1]];
+  let res = Array.from(Array(n), () => new Array(n).fill(0));
+  let curr = 0;
+  let top = 0;
+  let right = n - 1;
+  let bottom = n - 1;
+  let left = 0;
+  let side = "top";
+  while (curr !== n * n) {
+    switch (side) {
+      case "top":
+        for (let i = left; i <= right; i++) {
+          res[top][i] = ++curr;
+        }
+        side = "right";
+        top++;
+        break;
+      case "right":
+        for (let i = top; i <= bottom; i++) {
+          res[i][right] = ++curr;
+        }
+        side = "bottom";
+        right--;
+        break;
+      case "bottom":
+        for (let i = right; i >= left; i--) {
+          res[bottom][i] = ++curr;
+        }
+        side = "left";
+        bottom--;
+
+        break;
+      case "left":
+        for (let i = bottom; i >= top; i--) {
+          res[i][left] = ++curr;
+        }
+        side = "top";
+        left++;
+        break;
+      default:
+        break;
+    }
+  }
+  return res;
+}
+
+// 167. Two Sum II - Input Array Is Sorted
+
+function twoSum2(numbers, target) {
+  let obj = {};
+  for (let i = 0; i < numbers.length; i++) {
+    let targetVal = target - numbers[i];
+    if (obj[targetVal] !== undefined) return [obj[targetVal], i + 1];
+    obj[numbers[i]] = i + 1;
+  }
+}
+
+// 1929. Concatenation of Array
+
+function getConcatenation(nums) {
+  return [...nums, ...nums];
+}
+
+// 1920. Build Array from Permutation
+
+function buildArray(nums) {
+  let ans = [];
+  for (let i = 0; i < nums.length; i++) {
+    ans.push(nums[nums[i]]);
+  }
+  return ans;
+}
+
+// 1512. Number of Good Pairs
+
+function numIdenticalPairs(nums) {
+  let res = 0;
+  for (let i = 0; i < nums.length - 1; i++) {
+    let j = i + 1;
+    while (j < nums.length) {
+      if (nums[i] === nums[j]) res++;
+      j++;
+    }
+  }
+  return res;
+}
+
+// 2011. Final Value of Variable After Performing Operations
+
+function finalValueAfterOperations(operations) {
+  let x = 0;
+  for (let i = 0; i < operations.length; i++) {
+    if (operations[i] === "--X" || operations[i] === "X--") x -= 1;
+    else if (operations[i] === "++X" || operations[i] === "X++") x += 1;
+  }
+  return x;
+}
+
+// 1470. Shuffle the Array
+
+function shuffle(nums, n) {
+  let i = 0;
+  let j = 0;
+  let res = [];
+  while (res.length < nums.length) {
+    res.push(nums[i]);
+    i += n;
+    if (i >= nums.length) {
+      j++;
+      i = j;
+    }
+  }
+  return res;
+}
+
+// 2942. Find Words Containing Character
+
+function findWordsContaining(words, x) {
+  let res = [];
+  for (let i = 0; i < words.length; i++) {
+    if (words[i].includes(x)) res.push(i);
+  }
+  return res;
+}
+
+// 1637. Widest Vertical Area Between Two Points Containing No Points
+
+function maxWidthOfVerticalArea(points) {
+  let res = 0;
+  let arr = points.map((p) => p[0]).sort((a, b) => a - b);
+  let i = 0;
+  while (i < arr.length - 1) {
+    res = Math.max(arr[i + 1] - arr[i], res);
+    i++;
+  }
+  return res;
+}
+
+// 2798. Number of Employees Who Met the Target
+
+function numberOfEmployeesWhoMetTarget(hours, target) {
+  return hours.filter((h) => h >= target).length;
+}
+
+// 2824. Count Pairs Whose Sum is Less than Target
+
+function countPairs(nums, target) {
+  nums.sort((a, b) => a - b);
+  let res = 0
+  for (let i = 0; i < nums.length; i++){
+    let j = i + 1
+    if (nums[i] + nums[j] >= target) break
+    while(nums[i] + nums[j] < target) {
+      res++
+      j++
+    }
+  }
+  return res
+}
+
+// 22. Generate Parentheses
+
+function generateParenthesis(n){
+  let res = []
+  recursive(n, 0, "", res)
+  return res
+}
+function recursive(open, close, output, res){
+  if (open === 0 && close === 0){
+    res.push(output)
+  }
+  if (open > 0) recursive(open - 1, close + 1, output + "(", res)
+  if (close > 0) recursive(open, close - 1, output + ")", res)
+}
+
+console.log(generateParenthesis(3))
