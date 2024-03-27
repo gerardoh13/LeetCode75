@@ -449,31 +449,152 @@ function numberOfEmployeesWhoMetTarget(hours, target) {
 
 function countPairs(nums, target) {
   nums.sort((a, b) => a - b);
-  let res = 0
-  for (let i = 0; i < nums.length; i++){
-    let j = i + 1
-    if (nums[i] + nums[j] >= target) break
-    while(nums[i] + nums[j] < target) {
-      res++
-      j++
+  let res = 0;
+  for (let i = 0; i < nums.length; i++) {
+    let j = i + 1;
+    if (nums[i] + nums[j] >= target) break;
+    while (nums[i] + nums[j] < target) {
+      res++;
+      j++;
     }
   }
-  return res
+  return res;
 }
 
 // 22. Generate Parentheses
 
-function generateParenthesis(n){
-  let res = []
-  recursive(n, 0, "", res)
-  return res
+function generateParenthesis(n) {
+  let res = [];
+  recursive(n, 0, "", res);
+  return res;
 }
-function recursive(open, close, output, res){
-  if (open === 0 && close === 0){
-    res.push(output)
+function recursive(open, close, output, res) {
+  if (open === 0 && close === 0) {
+    res.push(output);
   }
-  if (open > 0) recursive(open - 1, close + 1, output + "(", res)
-  if (close > 0) recursive(open, close - 1, output + ")", res)
+  if (open > 0) recursive(open - 1, close + 1, output + "(", res);
+  if (close > 0) recursive(open, close - 1, output + ")", res);
 }
 
-console.log(generateParenthesis(3))
+// 1480. Running Sum of 1d Array
+
+function runningSum(nums) {
+  for (let i = 1; i < nums.length; i++) {
+    nums[i] = nums[i] + nums[i - 1];
+  }
+  return nums;
+}
+
+// 1365. How Many Numbers Are Smaller Than the Current Number
+
+function smallerNumbersThanCurrent(nums) {
+  let sorted = nums.toSorted((a, b) => a - b);
+  for (let i = 0; i < nums.length; i++) {
+    nums[i] = sorted.indexOf(nums[i]);
+  }
+  return nums;
+}
+
+// 2114. Maximum Number of Words Found in Sentences
+
+function mostWordsFound(sentences) {
+  let res = 0;
+  for (let i = 0; i < sentences.length; i++) {
+    res = Math.max(res, sentences[i].split(" ").length);
+  }
+  return res;
+}
+
+// 2859. Sum of Values at Indices With K Set Bits
+
+function sumIndicesWithKSetBits(nums, k) {
+  let arr = [];
+  for (let i = 0; i < nums.length; i++) {
+    let x = i.toString(2).replaceAll("0", "").length;
+    if (x === k) arr.push(nums[i]);
+  }
+  return arr.reduce((a, b) => a + b, 0);
+}
+
+// 2574. Left and Right Sum Differences
+
+function leftRightDifference(nums) {
+  if (nums.length === 1) return [0];
+  let res = [];
+  let leftSum = 0;
+  let rightSum = nums.slice(1).reduce((a, b) => a + b, 0);
+  for (let i = 0; i < nums.length; i++) {
+    res.push(Math.abs(leftSum - rightSum));
+    leftSum += nums[i];
+    rightSum -= nums[i + 1];
+  }
+  return res;
+}
+
+// 1389. Create Target Array in the Given Order
+
+function createTargetArray(nums, index) {
+  let res = [];
+  for (let i = 0; i < nums.length; i++) {
+    res.splice(index[i], 0, nums[i]);
+  }
+  return res;
+}
+
+// 41. First Missing Positive
+
+function firstMissingPositive(nums) {
+  let set = new Set(nums);
+  let i = 1;
+  while (set.has(i)) i++;
+  return i;
+}
+
+// 2910. Minimum Number of Groups to Create a Valid Assignment
+
+// function minGroupsForValidAssignment(balls) {
+//   let freq = {};
+//   for (let num of balls) {
+//     freq[num] = freq[num] + 1 || 1;
+//   }
+//   let values = Object.values(freq).sort((a, b) => a - b);
+//   let n = values.length - 1;
+//   let target = values[0] + 1;
+//   debugger;
+//   while (n >= 0) {
+//     if (values[n] > target) {
+//       let excess =
+//         Math.floor(values[n] / 2) > target
+//           ? values[n] - target
+//           : Math.floor(values[n] / 2);
+//       values.splice(n + 1, 0, excess);
+//       values[n] = values[n] - excess;
+//       if (excess < target) {
+//         target = excess + 1;
+//         n = values.length - 1;
+//       }
+//     }
+//     if (values[n + 1] > target) n++;
+//     else if (values[n] > target) continue;
+//     else n--;
+//   }
+//   return values.length;
+// }
+
+// 713. Subarray Product Less Than K
+
+function numSubarrayProductLessThanK(nums, k) {
+  let res = 0;
+  if (k === 0) return res;
+  let l = 0;
+  let sub = 1;
+  for (let r = 0; r < nums.length; r++) {
+    sub *= nums[r];
+    while (sub >= k && l <= r) {
+      sub /= nums[l];
+      l++;
+    }
+    res += r - l + 1;
+  }
+  return res;
+}
