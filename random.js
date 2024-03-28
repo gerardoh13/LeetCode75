@@ -598,3 +598,23 @@ function numSubarrayProductLessThanK(nums, k) {
   }
   return res;
 }
+
+// 2958. Length of Longest Subarray With at Most K Frequency
+
+function maxSubarrayLength(nums, k) {
+  let res = 0;
+  let freq = {};
+  let l = 0;
+  let count = 0;
+  for (let r = 0; r < nums.length; r++) {
+    freq[nums[r]] = freq[nums[r]] + 1 || 1;
+    count++;
+    while ((freq[nums[l]] > k || freq[nums[r]] > k) && l <= r) {
+      freq[nums[l]]--;
+      count--;
+      l++;
+    }
+    res = Math.max(count, res);
+  }
+  return res;
+}
