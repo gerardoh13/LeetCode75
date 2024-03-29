@@ -43,7 +43,6 @@ function isHappy(n) {
   if (n === 1) return true;
   let set = new Set();
   let str = n.toString();
-  debugger;
   while (true) {
     if (str.length === 1) str += "0";
     n = 0;
@@ -560,7 +559,6 @@ function firstMissingPositive(nums) {
 //   let values = Object.values(freq).sort((a, b) => a - b);
 //   let n = values.length - 1;
 //   let target = values[0] + 1;
-//   debugger;
 //   while (n >= 0) {
 //     if (values[n] > target) {
 //       let excess =
@@ -615,6 +613,35 @@ function maxSubarrayLength(nums, k) {
       l++;
     }
     res = Math.max(count, res);
+  }
+  return res;
+}
+
+// 2810. Faulty Keyboard
+
+function finalString(s) {
+  let res = [];
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === "i") res.reverse();
+    else res.push(s[i]);
+  }
+  return res.join("");
+}
+
+// 2962. Count Subarrays Where Max Element Appears at Least K Times
+
+function countSubarrays(nums, k) {
+  let max = Math.max(...nums);
+  let res = 0;
+  let count = 0;
+  let l = 0;
+  for (let r = 0; r < nums.length; r++) {
+    if (nums[r] === max) count++;
+    while (count >= k) {
+      res += nums.length - r;
+      if (nums[l] === max) count--;
+      l++;
+    }
   }
   return res;
 }

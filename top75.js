@@ -26,15 +26,15 @@ function mergeAlternately(word1, word2) {
 function gcdOfStrings(str1, str2) {
   if (str1 + str2 !== str2 + str1) return "";
   if (str1 === str2) return str1;
-  let gcd = gcd(str1.length, str2.length)
-  return str1.slice(0, gcd)
+  let gcd = gcd(str1.length, str2.length);
+  return str1.slice(0, gcd);
 }
 
 function gcd(a, b) {
   while (b !== 0) {
-      const temp = b;
-      b = a % b;
-      a = temp;
+    const temp = b;
+    b = a % b;
+    a = temp;
   }
   return a;
 }
@@ -280,18 +280,19 @@ function maxArea(height) {
 
 // 933. Number of Recent Calls
 
-var RecentCounter = function () {
-  this.q = [];
-};
-
-RecentCounter.prototype.ping = function (t) {
-  this.q.push(t);
-  while (this.q[0] < t - 3000) {
-    this.q.shift();
+class RecentCounter {
+  constructor() {
+    this.q = [];
   }
+  ping(t) {
+    this.q.push(t);
+    while (this.q[0] < t - 3000) {
+      this.q.shift();
+    }
 
-  return this.q.length;
-};
+    return this.q.length;
+  }
+}
 
 // 2390. Removing Stars From a String
 
@@ -755,4 +756,41 @@ function decodeString(s) {
     } else stack.push(s[i]);
   }
   return stack.join("");
+}
+
+// 162. Find Peak Element
+function findPeakElement(nums) {
+  let end = nums.length - 1;
+  let mid = Math.floor(end / 2);
+
+  while (true) {
+    if (
+      (nums[mid + 1] < nums[mid] || mid === end) &&
+      (nums[mid - 1] < nums[mid] || mid === 0)
+    )
+      return mid;
+    else if (nums[mid + 1] > nums[mid]) mid++;
+    else if (nums[mid - 1] > nums[mid]) mid--;
+  }
+}
+
+// 875. Koko Eating Bananas
+
+function minEatingSpeed(piles, h) {
+  let max = Math.max(...piles);
+  let min = 1;
+  if (piles.length === h) return max;
+  let res = max;
+  while (min <= max) {
+    let mid = Math.floor((min + max) / 2);
+    let hours = 0;
+    for (let i = 0; i < piles.length; i++) {
+      hours += Math.ceil(piles[i] / mid);
+    }
+    if (hours <= h) {
+      res = mid;
+      max = mid - 1;
+    } else min = mid + 1;
+  }
+  return res;
 }
