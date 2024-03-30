@@ -645,3 +645,37 @@ function countSubarrays(nums, k) {
   }
   return res;
 }
+
+// 992. Subarrays with K Different Integers
+
+function subarraysWithKDistinct(nums, k) {
+  let res = 0;
+  let freq = {};
+  let l = 0;
+  let r = 0;
+  let size = 0;
+  while (r < nums.length) {
+    if (nums[r] in freq) {
+      freq[nums[r]]++;
+    } else {
+      freq[nums[r]] = 1;
+      size++;
+    }
+    while (size == k) {
+      let count = 0;
+      let j = r + 1;
+      while (nums[j++] in freq) {
+        count++;
+      }
+      res += count + 1;
+      freq[nums[l]]--;
+      if (freq[nums[l]] == 0) {
+        size--;
+        delete freq[nums[l]];
+      }
+      l++;
+    }
+    r++;
+  }
+  return res;
+}
