@@ -679,3 +679,20 @@ function subarraysWithKDistinct(nums, k) {
   }
   return res;
 }
+
+// 2444. Count Subarrays With Fixed Bounds
+
+function countSubarrays2(nums, minK, maxK) {
+  let res = 0;
+  let bad = -1,
+    l = -1,
+    r = -1;
+  for (let i = 0; i < nums.length; ++i) {
+    if (!(minK <= nums[i] && nums[i] <= maxK)) bad = i;
+    if (nums[i] === minK) l = i;
+    if (nums[i] === maxK) r = i;
+    res += Math.max(0, Math.min(l, r) - bad);
+  }
+  return res;
+}
+
