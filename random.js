@@ -696,3 +696,20 @@ function countSubarrays2(nums, minK, maxK) {
   return res;
 }
 
+// 1535. Find the Winner of an Array Game
+
+function getWinner(arr, k) {
+  if (k === 1) return Math.max(arr[0], arr[1]);
+  let max = arr[0];
+  let wins = 0;
+  let i = 1;
+  while (wins < k && i < arr.length) {
+    wins++;
+    if (max < arr[i]) {
+      max = arr[i];
+      wins = 1;
+    }
+    i++;
+  }
+  return max;
+}
