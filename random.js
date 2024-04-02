@@ -713,3 +713,167 @@ function getWinner(arr, k) {
   }
   return max;
 }
+
+// 1570.
+
+class SparseVector {
+  construtor(nums) {
+    this.vector = new Map();
+    for (let i = 0; i < nums.length; i++) {
+      this.construtor.log(i);
+      this.nums.set(i, nums[i]);
+    }
+  }
+  dotProduct(vec) {}
+}
+
+// let sp = new SparseVector([1, 0, 0, 2, 3]);
+
+// console.log(sp.vector);
+
+// 501
+
+function findMode(root) {
+  let freq = {};
+  let toVisitStack = [this.root];
+
+  if (!toVisitStack[0]) return 0;
+
+  while (toVisitStack.length) {
+    let curr = toVisitStack.shift();
+    freq[curr.val] = freq[curr.val] + 1 || 1;
+    for (let child of [curr.left, curr.right]) {
+      if (child) toVisitStack.push(child);
+    }
+  }
+  let res = 0;
+  for (let key in freq) {
+    res = Math.max(freq[key], res);
+  }
+  return res;
+}
+
+//
+
+function nestedListSum(arr) {
+  arr = flattenArray(arr);
+  return arr.reduce((prev, cur) => prev + cur, 0);
+}
+
+function flattenArray(arr) {
+  let flattened = [];
+  arr.forEach((item) => {
+    if (Array.isArray(item)) flattened.push(...flattenArray(item));
+    else flattened.push(item);
+  });
+
+  return flattened;
+}
+
+console.log(nestedListSum([[1, 1], 2, [1, 1]]));
+
+//
+
+// Given Code
+
+const alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+// Used Constants
+
+const shiftValue = 42;
+const tebahpla = "zyxwvutsrqponmlkjihgfedcba";
+
+// Encryption
+
+function encryptLetter(letter, shift) {
+  if (alphabet.includes(letter.toLowerCase())) {
+    const index = alphabet.indexOf(letter.toLowerCase());
+    const newIndex = (index + shift) % alphabet.length;
+    return alphabet[newIndex];
+  } else {
+    return letter;
+  }
+}
+
+function encrypt(message, shift) {
+  let encryptedMessage = "";
+  let letterCount = 1;
+
+  for (let i = 0; i < message.length; i++) {
+    encryptedMessage += encryptLetter(message[i], shift);
+    letterCount++;
+    if (letterCount % 3 === 0) {
+      encryptedMessage += randomLetter();
+    }
+  }
+  return encryptedMessage;
+}
+
+// Decryption
+
+function decryptLetter(letter, shift) {
+  if (alphabet.includes(letter.toLowerCase())) {
+    const index = tebahpla.indexOf(letter.toLowerCase());
+    const newIndex = (index + shift) % tebahpla.length;
+    return tebahpla[newIndex];
+  } else {
+    return letter;
+  }
+}
+
+function decrypt(encryptedMessage, shiftValue) {
+  let decrypt = "";
+  let badLetter = 0;
+  for (let i = 0; i < encryptedMessage.length; i++) {
+    badLetter = i + 1;
+    if (badLetter % 3 === 0) {
+      decrypt += "";
+      badLetter--;
+    } else {
+      decrypt += decryptLetter(encryptedMessage[i], shiftValue);
+    }
+  }
+  return decrypt;
+}
+
+// Other Stuff
+
+function randomLetter() {
+  const randomLttr = Math.floor(Math.random() * 26);
+  return alphabet[randomLttr];
+}
+
+// Testing Space
+
+// console.log(
+//   encrypt(
+//     "This is my secret message, don't tell anyone or I will find you!",
+//     shiftValue
+//   )
+// );
+
+// console.log(
+//   decrypt(
+//     "jxzyi myi vco liusdhuja cuwiiqnwu,u tewd'jr judbb uqdoeedut ehw y jmybeb viydtm oebk!",
+//     shiftValue
+//   )
+// );
+
+function isIsomorphic(s, t) {
+  if (s.length !== t.length) return false;
+  let str = "";
+  let dictS = {};
+  let dictT = {};
+
+  for (let i = 0; i < s.length; i++) {
+       dictS[s[i]] = t[i];
+       dictT[t[i]] = s[i];
+       console.log(dictS[s[i]], dictT[t[i]])
+    // str += dict[s[i]];
+    // if (str.substring(0, i + 1) !== t.substring(0, i + 1)) return false;
+  }
+  return true;
+}
+
+// console.log(isIsomorphic("badc", "baba"));
+console.log(isIsomorphic("egg", "add"));
