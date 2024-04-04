@@ -713,47 +713,8 @@ function getWinner(arr, k) {
   }
   return max;
 }
-// 501
 
-function findMode(root) {
-  let freq = {};
-  let toVisitStack = [this.root];
-
-  if (!toVisitStack[0]) return 0;
-
-  while (toVisitStack.length) {
-    let curr = toVisitStack.shift();
-    freq[curr.val] = freq[curr.val] + 1 || 1;
-    for (let child of [curr.left, curr.right]) {
-      if (child) toVisitStack.push(child);
-    }
-  }
-  let res = 0;
-  for (let key in freq) {
-    res = Math.max(freq[key], res);
-  }
-  return res;
-}
-
-// 
-function nestedListSum(arr) {
-  arr = flattenArray(arr);
-  return arr.reduce((prev, cur) => prev + cur, 0);
-}
-
-function flattenArray(arr) {
-  let flattened = [];
-  arr.forEach((item) => {
-    if (Array.isArray(item)) flattened.push(...flattenArray(item));
-    else flattened.push(item);
-  });
-
-  return flattened;
-}
-
-// console.log(nestedListSum([[1, 1], 2, [1, 1]]));
-
-//
+// 205. Isomorphic Strings
 
 function isIsomorphic(s, t) {
   if (s.length !== t.length) return false;
@@ -800,4 +761,19 @@ function exists(board, word) {
     }
   }
   return false;
+}
+
+// 1614. Maximum Nesting Depth of the Parentheses
+
+function maxDepth(s) {
+  let res = 0;
+  if (s === "") return res;
+  let count = 0;
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === "(") {
+      count++;
+      res = Math.max(count, res);
+    } else if (s[i] === ")") count--;
+  }
+  return res;
 }
