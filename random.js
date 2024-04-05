@@ -777,3 +777,19 @@ function maxDepth(s) {
   }
   return res;
 }
+
+// 1544. Make The String Great
+
+function makeGood(s) {
+  let stack = [];
+  for (let i = 0; i < s.length; i++) {
+    let lifo = stack[stack.length - 1] || null;
+    if (
+      (s[i].toLowerCase() === lifo || s[i].toUpperCase() === lifo) &&
+      s[i] !== lifo
+    )
+      stack.pop();
+    else stack.push(s[i]);
+  }
+  return stack.join("");
+}
