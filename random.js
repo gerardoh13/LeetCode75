@@ -793,3 +793,25 @@ function makeGood(s) {
   }
   return stack.join("");
 }
+
+// 1249. Minimum Remove to Make Valid Parentheses
+
+function minRemoveToMakeValid(s) {
+  let toArr = [];
+  let stack = [];
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === "(") stack.push(i);
+    else if (s[i] === ")") {
+      if (stack.length) stack.pop();
+      else {
+        toArr.push("");
+        continue;
+      }
+    }
+    toArr.push(s[i]);
+  }
+  for (let i = 0; i < stack.length; i++) {
+    toArr[stack[i]] = "";
+  }
+  return toArr.join("");
+}
