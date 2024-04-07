@@ -815,3 +815,25 @@ function minRemoveToMakeValid(s) {
   }
   return toArr.join("");
 }
+
+// 678. Valid Parenthesis String
+
+function checkValidString(s) {
+  let openStack = [];
+  let astStack = [];
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === "(") openStack.push(i);
+    else if (s[i] === "*") astStack.push(i);
+    else {
+      if (openStack.length) openStack.pop();
+      else if (astStack.length) astStack.pop();
+      else return false;
+    }
+  }
+  debugger
+  while (openStack.length && astStack.length) {
+    if (openStack.pop() > astStack.pop()) return false;
+  }
+  return openStack.length === 0;
+}
+
