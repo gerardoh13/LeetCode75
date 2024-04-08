@@ -830,10 +830,20 @@ function checkValidString(s) {
       else return false;
     }
   }
-  debugger
   while (openStack.length && astStack.length) {
     if (openStack.pop() > astStack.pop()) return false;
   }
   return openStack.length === 0;
 }
 
+// 1700. Number of Students Unable to Eat Lunch
+
+function countStudents(students, sandwiches) {
+  while (students.length) {
+    let s1 = students.shift();
+    if (s1 === sandwiches[0]) sandwiches.shift();
+    else students.push(s1);
+    if (students.indexOf(sandwiches[0]) === -1) return students.length;
+  }
+  return 0;
+}

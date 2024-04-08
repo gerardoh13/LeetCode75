@@ -1,7 +1,6 @@
 // 80. Remove Duplicates from Sorted Array II
 
 function removeDuplicates2(nums) {
-  debugger;
   for (let i = 0; i < nums.length; i++) {
     let j = i;
     while (nums[i] === nums[j]) j++;
