@@ -847,3 +847,18 @@ function countStudents(students, sandwiches) {
   }
   return 0;
 }
+
+// 2073. Time Needed to Buy Tickets
+
+function timeRequiredToBuy(tickets, k) {
+  let res = 0;
+  let kTickets = tickets[k];
+  for (let i = 0; i < tickets.length; i++) {
+    if (i <= k) {
+      time += Math.min(tickets[i], kTickets);
+    } else {
+      time += Math.min(tickets[i], kTickets - 1);
+    }
+  }
+  return res;
+}
