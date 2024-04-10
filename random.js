@@ -862,3 +862,16 @@ function timeRequiredToBuy(tickets, k) {
   }
   return res;
 }
+
+// 950. Reveal Cards In Increasing Order
+
+function deckRevealedIncreasing(deck) {
+  let stack = deck.sort((a, b) => b - a);
+  let queue = [stack.shift()];
+  debugger
+  while (stack.length > 0) {
+      queue.unshift(queue.pop());
+      queue.unshift(stack.shift());
+  }
+  return queue;
+}
