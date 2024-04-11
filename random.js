@@ -868,10 +868,30 @@ function timeRequiredToBuy(tickets, k) {
 function deckRevealedIncreasing(deck) {
   let stack = deck.sort((a, b) => b - a);
   let queue = [stack.shift()];
-  debugger
+  debugger;
   while (stack.length > 0) {
-      queue.unshift(queue.pop());
-      queue.unshift(stack.shift());
+    queue.unshift(queue.pop());
+    queue.unshift(stack.shift());
   }
   return queue;
+}
+
+// 402. Remove K Digits
+
+function removeKdigits(num, k) {
+  if (num.length === k) return "0";
+  let stack = [];
+  for (let int of num) {
+    while (k && stack.length && int < stack[stack.length - 1]) {
+      stack.pop();
+      k--;
+    }
+    stack.push(int);
+  }
+  while (k) {
+    stack.pop();
+    k--;
+  }
+  let res = stack.join("").replace(/^0+/, "");
+  return res ? res : "0";
 }
