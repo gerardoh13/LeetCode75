@@ -895,3 +895,25 @@ function removeKdigits(num, k) {
   let res = stack.join("").replace(/^0+/, "");
   return res ? res : "0";
 }
+
+// 42. Trapping Rain Water
+
+function trap(height) {
+  let l = 0,
+    r = height.length - 1;
+  let lHeight = height[l],
+    rHeight = height[r];
+  let res = 0;
+  while (l < r) {
+    if (lHeight < rHeight) {
+      l++;
+      lHeight = Math.max(lHeight, height[l]);
+      res += lHeight - height[l];
+    } else {
+      r--;
+      rHeight = Math.max(rHeight, height[r]);
+      res += rHeight - height[r];
+    }
+  }
+  return res;
+}
