@@ -946,3 +946,16 @@ function maximalRectangle() {
 // let matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
 
 // console.log(maximalRectangle(matrix))
+
+// 404. Sum of Left Leaves
+
+function sumOfLeftLeaves(root) {
+  let res = 0;
+  function dfs(node, dir) {
+    if (!node.left && !node.right && dir === "left") res += node.val;
+    if (node.left) dfs(node.left, "left");
+    if (node.right) dfs(node.right, "right");
+  }
+  dfs(root, "root");
+  return res;
+}
