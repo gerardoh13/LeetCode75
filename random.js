@@ -925,7 +925,6 @@ function maximalRectangle() {
   const n = matrix[0].length;
   const heights = new Array(n + 1).fill(0);
   let maxArea = 0;
-  // debugger;
   for (let row of matrix) {
     for (let i = 0; i < n; i++) {
       heights[i] = row[i] === "1" ? heights[i] + 1 : 0;
@@ -957,5 +956,18 @@ function sumOfLeftLeaves(root) {
     if (node.right) dfs(node.right, "right");
   }
   dfs(root, "root");
+  return res;
+}
+
+// 129. Sum Root to Leaf Numbers
+
+function sumNumbers(root) {
+  let res = 0;
+  function dfs(node, count) {
+    if (!node.left && !node.right) res += count * 10 + node.val;
+    if (node.left) dfs(node.left, count * 10 + node.val);
+    if (node.right) dfs(node.right, count * 10 + node.val);
+  }
+  dfs(root, 0);
   return res;
 }
