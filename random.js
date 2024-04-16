@@ -971,3 +971,33 @@ function sumNumbers(root) {
   dfs(root, 0);
   return res;
 }
+
+// 623. Add One Row to Tree
+
+class TreeNode {
+  constructor(val, left, right) {
+    this.val = val === undefined ? 0 : val;
+    this.left = left === undefined ? null : left;
+    this.right = right === undefined ? null : right;
+  }
+}
+
+function addOneRow(root, val, depth) {
+  if (depth === 1) {
+    let newRoot = new TreeNode(val, root);
+    return newRoot;
+  }
+  function dfs(node, level) {
+    if (level === depth - 1) {
+      let newLeft = new TreeNode(val, node.left, undefined);
+      let newRight = new TreeNode(val, undefined, node.right);
+      node.left = newLeft;
+      node.right = newRight;
+      return;
+    }
+    if (node.left) dfs(node.left, level + 1);
+    if (node.right) dfs(node.right, level + 1);
+  }
+  dfs(root, 1);
+  return root;
+}
