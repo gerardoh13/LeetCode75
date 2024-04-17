@@ -1001,3 +1001,22 @@ function addOneRow(root, val, depth) {
   dfs(root, 1);
   return root;
 }
+
+// 988. Smallest String Starting From Leaf
+
+function smallestFromLeaf(root){
+  let res = "";
+  let az = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+  function dfs(node, substr) {
+    debugger;
+    if (!node.left && !node.right) {
+      substr = az[node.val] + substr.substring(0);
+      if (!res) res = substr;
+      else res = substr < res ? substr : res;
+    }
+    if (node.left) dfs(node.left, az[node.val] + substr.substring(0));
+    if (node.right) dfs(node.right, az[node.val] + substr.substring(0));
+  }
+  dfs(root, "");
+  return res;
+}
