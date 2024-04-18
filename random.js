@@ -1004,9 +1004,36 @@ function addOneRow(root, val, depth) {
 
 // 988. Smallest String Starting From Leaf
 
-function smallestFromLeaf(root){
+function smallestFromLeaf(root) {
   let res = "";
-  let az = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+  let az = [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "o",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "u",
+    "v",
+    "w",
+    "x",
+    "y",
+    "z",
+  ];
   function dfs(node, substr) {
     debugger;
     if (!node.left && !node.right) {
@@ -1018,5 +1045,29 @@ function smallestFromLeaf(root){
     if (node.right) dfs(node.right, az[node.val] + substr.substring(0));
   }
   dfs(root, "");
+  return res;
+}
+
+// 463. Island Perimeter
+
+function islandPerimeter() {
+  let res = 0;
+  let cols = grid[0].length;
+  let rows = grid.length;
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      if (!grid[i][j]) continue;
+      else {
+        while (grid[i][j]) {
+          if (i === 0 || !grid[i - 1][j]) res++;
+          if (i === rows - 1 || !grid[i + 1][j]) res++;
+          if (!grid[i][j - 1]) res++;
+          if (!grid[i][j + 1]) res++;
+          j++;
+        }
+        if (grid[i].indexOf(1, j) === -1) break;
+      }
+    }
+  }
   return res;
 }
