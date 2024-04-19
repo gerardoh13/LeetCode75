@@ -1056,8 +1056,7 @@ function islandPerimeter() {
   let rows = grid.length;
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
-      if (!grid[i][j]) continue;
-      else {
+      if (grid[i][j])
         while (grid[i][j]) {
           if (i === 0 || !grid[i - 1][j]) res++;
           if (i === rows - 1 || !grid[i + 1][j]) res++;
@@ -1065,7 +1064,31 @@ function islandPerimeter() {
           if (!grid[i][j + 1]) res++;
           j++;
         }
-        if (grid[i].indexOf(1, j) === -1) break;
+      if (grid[i].indexOf(1, j) === -1) break;
+    }
+  }
+  return res;
+}
+
+// 200. Number of Islands
+
+function numIslands(grid) {
+  let res = 0;
+  let cols = grid[0].length;
+  let rows = grid.length;
+  function dfs(i, j) {
+    grid[i][j] = "0";
+    if (i < rows - 1 && grid[i + 1][j] === "1") dfs(i + 1, j);
+    if (i > 0 && grid[i - 1][j] === "1") dfs(i - 1, j);
+    if (grid[i][j + 1] === "1") dfs(i, j + 1);
+    if (grid[i][j - 1] === "1") dfs(i, j - 1);
+  }
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      if (grid[i].indexOf("1") === -1) break;
+      if (grid[i][j] === "1") {
+        res++;
+        dfs(i, j);
       }
     }
   }
