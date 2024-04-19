@@ -1035,7 +1035,6 @@ function smallestFromLeaf(root) {
     "z",
   ];
   function dfs(node, substr) {
-    debugger;
     if (!node.left && !node.right) {
       substr = az[node.val] + substr.substring(0);
       if (!res) res = substr;
@@ -1078,8 +1077,8 @@ function numIslands(grid) {
   let rows = grid.length;
   function dfs(i, j) {
     grid[i][j] = "0";
-    if (i < rows - 1 && grid[i + 1][j] === "1") dfs(i + 1, j);
     if (i > 0 && grid[i - 1][j] === "1") dfs(i - 1, j);
+    if (i < rows - 1 && grid[i + 1][j] === "1") dfs(i + 1, j);
     if (grid[i][j + 1] === "1") dfs(i, j + 1);
     if (grid[i][j - 1] === "1") dfs(i, j - 1);
   }
@@ -1089,6 +1088,38 @@ function numIslands(grid) {
       if (grid[i][j] === "1") {
         res++;
         dfs(i, j);
+      }
+    }
+  }
+  return res;
+}
+
+// 1992. Find All Groups of Farmland
+
+function findFarmland(land) {
+  let res = [];
+  let cols = land[0].length;
+  let rows = land.length;
+  let bottom = 0;
+  let right = 0;
+  function dfs(i, j) {
+    land[i][j]++;
+    if (
+      !land[i][j + 1] &&
+      (i === rows - 1 || (i < rows - 1 && !land[i + 1][j]))
+    ) {
+      bottom = i;
+      right = j;
+    }
+    if (i < rows - 1 && land[i + 1][j] === 1) dfs(i + 1, j);
+    if (land[i][j + 1] === 1) dfs(i, j + 1);
+  }
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      if (land[i].indexOf(1, j) === -1) break;
+      if (land[i][j] === 1) {
+        dfs(i, j);
+        res.push([i, j, bottom, right]);
       }
     }
   }
