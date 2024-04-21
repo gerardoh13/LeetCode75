@@ -1125,3 +1125,52 @@ function findFarmland(land) {
   }
   return res;
 }
+
+// 1971. Find if Path Exists in Graph
+
+function validPath(n, edges, source, destination) {
+  if (source === destination) return true;
+  let graph = new Map();
+  let visited = new Set();
+  for (let [v, e] of edges) {
+    if (graph.has(v)) graph.get(v).push(e);
+    else graph.set(v, [e]);
+    if (graph.has(e)) graph.get(e).push(v);
+    else graph.set(e, [v]);
+  }
+  function dfs(v) {
+    // debugger;
+    visited.add(v);
+    let edgs = graph.get(v);
+
+    if (edgs) {
+      for (let e of edgs) {
+        if (e === destination) return true;
+        if (!visited.has(e)) {
+          if (dfs(e)) return true;
+        }
+      }
+    }
+  }
+  let res = dfs(source);
+  console.log("start", source)
+  console.log("end", destination)
+  console.log("visited", visited);
+  console.log("graph", graph);
+  return res ? res : visited.has(destination);
+}
+let n = 10,
+  edges = [
+    [0, 7],
+    [0, 8],
+    [6, 1],
+    [2, 0],
+    [0, 4],
+    [5, 8],
+    [4, 7],
+    [1, 3],
+    [3, 5],
+    [6, 5],
+  ];
+(source = 7), (destination = 5);
+console.log(validPath(n, edges, source, destination));
