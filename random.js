@@ -1139,7 +1139,6 @@ function validPath(n, edges, source, destination) {
     else graph.set(e, [v]);
   }
   function dfs(v) {
-    // debugger;
     visited.add(v);
     let edgs = graph.get(v);
 
@@ -1152,25 +1151,35 @@ function validPath(n, edges, source, destination) {
       }
     }
   }
-  let res = dfs(source);
-  console.log("start", source)
-  console.log("end", destination)
-  console.log("visited", visited);
-  console.log("graph", graph);
-  return res ? res : visited.has(destination);
+  return dfs(source) ? true : false;
 }
-let n = 10,
-  edges = [
-    [0, 7],
-    [0, 8],
-    [6, 1],
-    [2, 0],
-    [0, 4],
-    [5, 8],
-    [4, 7],
-    [1, 3],
-    [3, 5],
-    [6, 5],
-  ];
-(source = 7), (destination = 5);
-console.log(validPath(n, edges, source, destination));
+
+// 752. Open the Lock
+
+function openLock(deadends, target) {
+  const dead = new Set(deadends);
+  const queue = [["0000", 0]];
+  const seen = new Set(["0000"]);
+  
+  for (let [curr, turns] of queue) {
+    if (curr === target) return turns;
+    if (dead.has(curr)) continue;
+    for (let next of getNextStates(curr)) {
+      if (seen.has(next)) continue;
+      seen.add(next);
+      queue.push([next, turns + 1]);
+    }
+  }
+  return -1;
+}
+
+function getNextStates(s = "0000") {
+  const ans = [];
+
+  for (let i = 0; i < s.length; i++) {
+    ans.push(s.slice(0, i) + ((+s[i] + 1) % 10).toString() + s.slice(i + 1));
+    ans.push(s.slice(0, i) + ((+s[i] + 9) % 10).toString() + s.slice(i + 1));
+  }
+
+  return ans;
+}
