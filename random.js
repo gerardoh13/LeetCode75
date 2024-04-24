@@ -1184,7 +1184,7 @@ function getNextStates(s = "0000") {
   return ans;
 }
 
-//
+// 310. Minimum Height Trees
 
 function findMinHeightTrees(n, edges) {
   if (!edges.length) return [0];

@@ -210,6 +210,7 @@ function minCostClimbingStairs(cost) {
 // 1137. N-th Tribonacci Number
 
 function tribonacci(n) {
+  if (!n) return n
   let t = [1, 1, 2];
   if (n < 4) return t[n - 1];
   n = n - 3;
