@@ -1246,6 +1246,7 @@ function longestIdealString(s, k) {
 
 function minFallingPathSum(grid) {
   const n = grid.length;
+  debugger;
   const dp = new Array(n).fill().map(() => new Array(n).fill(-1));
   for (let j = 0; j < n; j++) {
     dp[0][j] = grid[0][j];
@@ -1263,3 +1264,35 @@ function minFallingPathSum(grid) {
   }
   return Math.min(...dp[n - 1]);
 }
+
+// 514. Freedom Trail
+
+function findRotateSteps(ring, key) {
+  function countSteps(curr, next) {
+    stepsBetween = Math.abs(curr - next);
+    stepsAround = ring.length - stepsBetween;
+    return Math.min(stepsAround, stepsBetween);
+  }
+  let bestSteps = new Map();
+  function tryLock(ringIdx, keyIdx) {
+    if (bestSteps.has(`${ringIdx}-${keyIdx}`))
+      return bestSteps.get(`${ringIdx}-${keyIdx}`);
+    if (keyIdx === key.length) {
+      bestSteps.set(`${ringIdx}-${keyIdx}`, 0);
+      return 0;
+    }
+    let minSteps = Infinity;
+    for (let i = 0; i < ring.length; i++) {
+      if (ring[i] === key[keyIdx]) {
+        minSteps = Math.min(
+          minSteps,
+          countSteps(ringIdx, i) + tryLock(i, keyIdx + 1) + 1
+        );
+      }
+    }
+    bestSteps.set(`${ringIdx}-${keyIdx}`, minSteps);
+    return minSteps;
+  }
+  return tryLock(0, 0);
+}
+
