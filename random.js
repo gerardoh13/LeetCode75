@@ -1275,6 +1275,7 @@ function findRotateSteps(ring, key) {
   }
   let bestSteps = new Map();
   function tryLock(ringIdx, keyIdx) {
+    debugger
     if (bestSteps.has(`${ringIdx}-${keyIdx}`))
       return bestSteps.get(`${ringIdx}-${keyIdx}`);
     if (keyIdx === key.length) {
@@ -1295,4 +1296,12 @@ function findRotateSteps(ring, key) {
   }
   return tryLock(0, 0);
 }
+// let ring = "godding",
+//   key = "godding";
+// console.log(findRotateSteps(ring, key));
 
+// 834. Sum of Distances in Tree
+
+function sumOfDistancesInTree(n, edges) {
+  
+}
