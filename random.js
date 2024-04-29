@@ -1331,3 +1331,12 @@ function sumOfDistancesInTree(n, edges) {
   preOrder(0, -1);
   return distanceSum;
 }
+
+// 2997. Minimum Number of Operations to Make Array XOR Equal to K
+
+function minOperations(nums, k) {
+  return (
+    (nums.reduce((prev, curr) => prev ^ curr, 0) ^ k).toString(2).split("1")
+      .length - 1
+  );
+}
