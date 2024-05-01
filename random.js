@@ -1365,3 +1365,14 @@ function wonderfulSubstrings(word) {
 
   return count;
 }
+
+// 2000. Reverse Prefix of Word
+
+function reveresePrefix(word, ch) {
+  let res = "";
+  for (let i = 0; i < word.length; i++) {
+    res = word[i] + res;
+    if (word[i] === ch) return res + word.substring(i + 1);
+  }
+  return word;
+}
