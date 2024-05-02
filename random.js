@@ -1376,3 +1376,17 @@ function reveresePrefix(word, ch) {
   }
   return word;
 }
+
+// 2441. Largest Positive Integer That Exists With Its Negative
+
+function findMaxK(nums) {
+  let res = -1;
+  let set = new Set();
+  for (let i = 0; i < nums.length; i++) {
+    set.add(nums[i]);
+    if (set.has(nums[i] * -1)) {
+      res = Math.max(res, Math.abs(nums[i]));
+    }
+  }
+  return res;
+}
