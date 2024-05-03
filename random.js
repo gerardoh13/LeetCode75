@@ -1390,3 +1390,18 @@ function findMaxK(nums) {
   }
   return res;
 }
+
+// 165. Compare Version Numbers
+
+function compareVersion(version1, version2) {
+  let v1 = version1.split(".");
+  let v2 = version2.split(".");
+  let longest = v1.length > v2.length ? v1.length : v2.length;
+  for (let i = 0; i < longest; i++) {
+    let rev1 = +v1[i] || 0;
+    let rev2 = +v2[i] || 0;
+    if (rev1 > rev2) return 1;
+    if (rev1 < rev2) return -1;
+  }
+  return 0;
+}
