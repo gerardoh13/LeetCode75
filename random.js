@@ -1410,7 +1410,9 @@ function compareVersion(version1, version2) {
 
 function numRescueBoats(people, limit) {
   people.sort((a, b) => a - b);
-  let res = 0, l = 0, r = people.length - 1;
+  let res = 0,
+    l = 0,
+    r = people.length - 1;
   while (l <= r) {
     if (people[l] + people[r] > limit) {
       l++;
@@ -1419,4 +1421,11 @@ function numRescueBoats(people, limit) {
     res++;
   }
   return res;
+}
+
+// 237. Delete Node in a Linked List
+
+function deleteNode(node) {
+  node.val = node.next.val;
+  node.next = node.next.next;
 }
