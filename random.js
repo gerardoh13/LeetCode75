@@ -1429,3 +1429,39 @@ function deleteNode(node) {
   node.val = node.next.val;
   node.next = node.next.next;
 }
+
+//
+
+function removeNodes(head) {
+  if (!head) return head;
+  head = reverseList(head);
+  let max = head;
+  let curr = head;
+  while (curr.next.next) {
+    if (curr.val < max.val) {
+      curr.val = curr.next.val;
+      curr.next = curr.next.next;
+    } else curr = curr.next;
+    max = curr.val >= max.val ? curr : max;
+  }
+  if (curr.next.val < max.val || curr.next.val < curr.val) curr.next = null;
+  if (curr.val < max.val) max.next = null;
+  return reverseList(head);
+}
+
+function reverseList(node) {
+  let vals = [];
+  let curr = node;
+  while (curr.next) {
+    vals.push(curr.val);
+    curr = curr.next;
+  }
+  vals.push(curr.val);
+  curr = node;
+  while (curr.next) {
+    curr.val = vals.pop();
+    curr = curr.next;
+  }
+  curr.val = vals.pop();
+  return node;
+}
