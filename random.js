@@ -1430,7 +1430,7 @@ function deleteNode(node) {
   node.next = node.next.next;
 }
 
-//
+// 2487. Remove Nodes From Linked List
 
 function removeNodes(head) {
   if (!head) return head;
@@ -1464,4 +1464,26 @@ function reverseList(node) {
   }
   curr.val = vals.pop();
   return node;
+}
+
+// 2816. Double a Number Represented as a Linked List
+
+function doubleIt(head) {
+  let curr = head;
+  let intStr = "";
+  while (curr) {
+    intStr += curr.val;
+    curr = curr.next;
+  }
+  let ogLen = intStr.length;
+  intStr = (BigInt(intStr) + BigInt(intStr)).toString();
+  if (intStr.length > ogLen) head = new ListNode(0, head);
+  curr = head;
+  let i = 0;
+  while (curr) {
+    curr.val = +intStr[i];
+    curr = curr.next;
+    i++;
+  }
+  return head;
 }
