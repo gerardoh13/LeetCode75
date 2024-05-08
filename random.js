@@ -868,7 +868,6 @@ function timeRequiredToBuy(tickets, k) {
 function deckRevealedIncreasing(deck) {
   let stack = deck.sort((a, b) => b - a);
   let queue = [stack.shift()];
-  debugger;
   while (stack.length > 0) {
     queue.unshift(queue.pop());
     queue.unshift(stack.shift());
@@ -1246,7 +1245,6 @@ function longestIdealString(s, k) {
 
 function minFallingPathSum(grid) {
   const n = grid.length;
-  debugger;
   const dp = new Array(n).fill().map(() => new Array(n).fill(-1));
   for (let j = 0; j < n; j++) {
     dp[0][j] = grid[0][j];
@@ -1275,7 +1273,6 @@ function findRotateSteps(ring, key) {
   }
   let bestSteps = new Map();
   function tryLock(ringIdx, keyIdx) {
-    debugger;
     if (bestSteps.has(`${ringIdx}-${keyIdx}`))
       return bestSteps.get(`${ringIdx}-${keyIdx}`);
     if (keyIdx === key.length) {
@@ -1486,4 +1483,21 @@ function doubleIt(head) {
     i++;
   }
   return head;
+}
+
+// 506. Relative Ranks
+
+function findRelativeRanks(score) {
+  let copy = [...score].sort((a, b) => b - a);
+  let map = new Map();
+  for (let i = 0; i < score.length; i++) {
+    if (i === 0) map.set(copy[i], "Gold Medal");
+    else if (i === 1) map.set(copy[i], "Silver Medal");
+    else if (i === 2) map.set(copy[i], "Bronze Medal");
+    else map.set(copy[i], `${i + 1}`);
+  }
+  for (let j = 0; j < score.length; j++) {
+    score[j] = map.get(score[j]);
+  }
+  return score;
 }
