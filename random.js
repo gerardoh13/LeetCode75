@@ -1501,3 +1501,17 @@ function findRelativeRanks(score) {
   }
   return score;
 }
+
+// 3075. Maximize Happiness of Selected Children
+
+function maximumHappinessSum(happiness, k) {
+  happiness.sort((a, b) => b - a);
+  let turns = 0;
+  let res = 0;
+  for (let i = 0; i < k; i++) {
+    res += Math.max(0, happiness[i] - turns);
+    turns++;
+  }
+  return res;
+}
+
