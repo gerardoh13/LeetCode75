@@ -1578,3 +1578,38 @@ function mincostToHireWorkers(quality, wage, k) {
   return res;
 }
 
+// 2373. Largest Local Values in a Matrix
+
+function largestLocal(grid) {
+  let len = grid.length;
+  let res = [];
+  for (let i = 0; i < len - 2; i++) {
+    let row = [];
+    for (let j = 0; j < len - 2; j++) {
+      row.push(
+        Math.max(
+          grid[i][j],
+          grid[i][j + 1],
+          grid[i][j + 2],
+          grid[i + 1][j],
+          grid[i + 1][j + 1],
+          grid[i + 1][j + 2],
+          grid[i + 2][j],
+          grid[i + 2][j + 1],
+          grid[i + 2][j + 2]
+        )
+      );
+    }
+    res.push(row);
+  }
+  return res;
+}
+
+let grid = [
+  [9, 9, 8, 1],
+  [5, 6, 2, 6],
+  [8, 2, 6, 4],
+  [6, 2, 2, 2],
+];
+
+console.log(largestLocal(grid));
