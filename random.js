@@ -1605,11 +1605,18 @@ function largestLocal(grid) {
   return res;
 }
 
-let grid = [
-  [9, 9, 8, 1],
-  [5, 6, 2, 6],
-  [8, 2, 6, 4],
-  [6, 2, 2, 2],
-];
+// 861. Score After Flipping Matrix
 
-console.log(largestLocal(grid));
+function matrixScore(grid){
+  let m = grid.length;
+  let n = grid[0].length;
+  let res = Math.pow(2, n - 1) * m;
+  for(let j = 1; j < n; j++){
+      let curr = 0;
+   for(let i = 0; i < m; i++){
+       curr += grid[i][0] === grid[i][j] ? 1 : 0;
+   }
+   res += Math.max(curr, m - curr) * Math.pow(2, n - 1 - j);
+  } 
+  return res;
+}
