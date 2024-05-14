@@ -1607,16 +1607,41 @@ function largestLocal(grid) {
 
 // 861. Score After Flipping Matrix
 
-function matrixScore(grid){
+function matrixScore(grid) {
   let m = grid.length;
   let n = grid[0].length;
   let res = Math.pow(2, n - 1) * m;
-  for(let j = 1; j < n; j++){
-      let curr = 0;
-   for(let i = 0; i < m; i++){
-       curr += grid[i][0] === grid[i][j] ? 1 : 0;
-   }
-   res += Math.max(curr, m - curr) * Math.pow(2, n - 1 - j);
-  } 
+  for (let j = 1; j < n; j++) {
+    let curr = 0;
+    for (let i = 0; i < m; i++) {
+      curr += grid[i][0] === grid[i][j] ? 1 : 0;
+    }
+    res += Math.max(curr, m - curr) * Math.pow(2, n - 1 - j);
+  }
+  return res;
+}
+
+// 1219. Path with Maximum Gold
+
+function getMaximumGold(grid) {
+  let m = grid.length;
+  let n = grid[0].length;
+  let res = 0;
+  function dfs(i, j, count) {
+    count += grid[i][j];
+    let temp = grid[i][j];
+    grid[i][j] = 0;
+    if (i > 0 && grid[i - 1][j]) dfs(i - 1, j, count);
+    if (i < m - 1 && grid[i + 1][j]) dfs(i + 1, j, count);
+    if (grid[i][j - 1]) dfs(i, j - 1, count);
+    if (grid[i][j + 1]) dfs(i, j + 1, count);
+    grid[i][j] = temp;
+    res = Math.max(res, count);
+  }
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (grid[i][j]) dfs(i, j, 0);
+    }
+  }
   return res;
 }
