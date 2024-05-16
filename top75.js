@@ -795,3 +795,12 @@ function minEatingSpeed(piles, h) {
   }
   return res;
 }
+
+// 649. Dota2 Senate
+
+function predictPartyVictory(senate){
+  let q = []
+  for (let i = 0; i < senate.length; i++){
+    
+  }
+}
