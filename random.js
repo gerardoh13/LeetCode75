@@ -1705,3 +1705,16 @@ function evaluateTree(root) {
     return evaluateTree(root.left) && evaluateTree(root.right);
   return (root.val = 1);
 }
+
+//
+
+function removeLeafNodes(root, target) {
+  function dfs(node) {
+    if (node.left && dfs(node.left)) node.left = null;
+    if (node.right && dfs(node.right)) node.right = null;
+    if (!node.left && !node.right && node.val === target) return true;
+  }
+  dfs(root);
+  if (!root.left && !root.right && root.val === target) return null;
+  return root;
+}
