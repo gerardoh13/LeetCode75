@@ -1706,7 +1706,7 @@ function evaluateTree(root) {
   return (root.val = 1);
 }
 
-//
+// 1325. Delete Leaves With a Given Value
 
 function removeLeafNodes(root, target) {
   function dfs(node) {
@@ -1717,4 +1717,19 @@ function removeLeafNodes(root, target) {
   dfs(root);
   if (!root.left && !root.right && root.val === target) return null;
   return root;
+}
+
+// 979. Distribute Coins in Binary Tree
+
+function distributeCoins(root) {
+  res = 0;
+  function dfs(node) {
+    if (!node) return 0;
+    let leftCoins = dfs(node.left);
+    let rightCoins = dfs(node.right);
+    res += Math.abs(leftCoins) + Math.abs(rightCoins);
+    return node.val - 1 + leftCoins + rightCoins;
+  }
+  dfs(root);
+  return res;
 }
