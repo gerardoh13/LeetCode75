@@ -1759,3 +1759,18 @@ function maximumValueSum(nums, k, edges) {
   if (count % 2 === 0) return totalSum;
   return Math.max(totalSum - positiveMin, totalSum + negativeMax);
 }
+
+// 1863. Sum of All Subset XOR Totals
+
+function subsetXORSum(nums) {
+  let res = 0;
+  let n = nums.length;
+  for (let i = 0; i < 1 << n; i++) {
+    let xor = 0;
+    for (let j = 0; j < n; j++) {
+      if (((i >> j) & 1) != 0) xor = xor ^ nums[j];
+    }
+    res += xor;
+  }
+  return res;
+}
