@@ -1774,3 +1774,21 @@ function subsetXORSum(nums) {
   }
   return res;
 }
+
+// 78. Subsets
+
+function subsets(nums) {
+  let res = [];
+  function recursion(sub, idx) {
+    if (idx === nums.length) {
+      res.push([...sub]);
+      return;
+    }
+    sub.push(nums[idx]);
+    recursion(sub, idx + 1);
+    sub.pop();
+    recursion(sub, idx + 1);
+  }
+  recursion([], 0);
+  return res
+}
