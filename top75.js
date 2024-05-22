@@ -210,7 +210,7 @@ function minCostClimbingStairs(cost) {
 // 1137. N-th Tribonacci Number
 
 function tribonacci(n) {
-  if (!n) return n
+  if (!n) return n;
   let t = [1, 1, 2];
   if (n < 4) return t[n - 1];
   n = n - 3;
@@ -798,9 +798,22 @@ function minEatingSpeed(piles, h) {
 
 // 649. Dota2 Senate
 
-function predictPartyVictory(senate){
-  let q = []
-  for (let i = 0; i < senate.length; i++){
-    
+function predictPartyVictory(senate) {
+  let dQ = [];
+  let rQ = [];
+  let i = 0;
+  while (i < senate.length) {
+    if (senate[i] === "R") rQ.push(i);
+    else dQ.push(i);
+    i++;
   }
+  let j = 0,
+    k = 0;
+  while (j < dQ.length && k < rQ.length) {
+    if (dQ[j] < rQ[k]) dQ.push(++i);
+    else rQ.push(++i);
+    j++;
+    k++;
+  }
+  return j === dQ.length ? "Radiant" : "Dire";
 }

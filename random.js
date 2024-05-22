@@ -1790,5 +1790,35 @@ function subsets(nums) {
     recursion(sub, idx + 1);
   }
   recursion([], 0);
-  return res
+  return res;
+}
+
+// 131. Palindrome Partitioning
+
+function partition(s) {
+  let res = [];
+  function isPalindrome(s) {
+    let i = 0,
+      j = s.length - 1;
+    while (i < j) {
+      if (s[i++] !== s[j--]) return false;
+    }
+    return true;
+  }
+  function backtrack(part, start) {
+    if (start === s.length) {
+      res.push([...part]);
+      return;
+    }
+    for (let end = start + 1; end <= s.length; end++) {
+      let sub = s.substring(start, end);
+      if (isPalindrome(sub)) {
+        part.push(sub);
+        backtrack(part, end);
+        part.pop();
+      }
+    }
+  }
+  backtrack([], 0);
+  return res;
 }
