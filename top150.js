@@ -221,3 +221,22 @@ function freqCounter(str) {
   }
   return obj;
 }
+
+// 122. Best Time to Buy and Sell Stock II
+
+function maxProfit(prices) {
+  let res = 0,
+    n = prices.length;
+  let curPrice = prices[0];
+  for (let i = 1; i < n; i++) {
+    const price = prices[i];
+    if (price < prices[i - 1]) {
+      res += prices[i - 1] - curPrice;
+      curPrice = price;
+    }
+  }
+  if (prices[n - 1] >= prices[n - 2]) res += prices[n - 1] - curPrice;
+  return res;
+}
+
+maxProfit([7, 1, 5, 3, 6, 4]);

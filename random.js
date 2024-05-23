@@ -1822,3 +1822,29 @@ function partition(s) {
   backtrack([], 0);
   return res;
 }
+
+// 2597. The Number of Beautiful Subsets
+
+function beautifulSubsets(nums, k) {
+  let res = 0;
+  let sub = [];
+  function backtrack(start) {
+    if (sub.length) res++;
+    for (let i = start; i < nums.length; i++) {
+      let valid = true;
+      for (let num of sub) {
+        if (Math.abs(num - nums[i]) === k) {
+          valid = false;
+          break;
+        }
+      }
+      if (valid) {
+        sub.push(nums[i]);
+        backtrack(i + 1);
+        sub.pop();
+      }
+    }
+  }
+  backtrack(0);
+  return res;
+}
