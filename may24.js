@@ -521,3 +521,26 @@ function maxScoreWords(words, letters, score) {
   backTrack(0, lettersSize, 0);
   return res;
 }
+
+// 140. Word Break II
+
+function wordBreak(s, wordDict) {
+  let res = [];
+  let words = [];
+  let dict = new Set(wordDict);
+  function backtrack(start) {
+    if (start === s.length) {
+      res.push(words.join(" "));
+      return;
+    }
+    for (let i = start; i < s.length; i++) {
+      let word = s.substring(start, i + 1);
+      if (!dict.has(word)) continue;
+      words.push(word);
+      backtrack(i + 1);
+      words.pop();
+    }
+  }
+  backtrack(0);
+  return res;
+}
