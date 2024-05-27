@@ -544,3 +544,56 @@ function wordBreak(s, wordDict) {
   backtrack(0);
   return res;
 }
+
+// 552. Student Attendance Record II
+
+function checkRecord(n) {
+  let MOD = 1000000007;
+  let memo = new Array(n + 1)
+    .fill(null)
+    .map(() => new Array(2).fill(null).map(() => new Array(3).fill(-1)));
+  let eligibleCombinations = (n, totalAbsences, consecutiveLates) => {
+    if (totalAbsences >= 2 || consecutiveLates >= 3) return 0;
+    if (n === 0) return 1;
+    if (memo[n][totalAbsences][consecutiveLates] !== -1) {
+      return memo[n][totalAbsences][consecutiveLates];
+    }
+    let count = 0;
+    count = eligibleCombinations(n - 1, totalAbsences, 0);
+    count = (count + eligibleCombinations(n - 1, totalAbsences + 1, 0)) % MOD;
+    count =
+      (count +
+        eligibleCombinations(n - 1, totalAbsences, consecutiveLates + 1)) %
+      MOD;
+    memo[n][totalAbsences][consecutiveLates] = count;
+    return count;
+  };
+  return eligibleCombinations(n, 0, 0);
+}
+
+// 1608. Special Array With X Elements Greater Than or Equal X
+
+function specialArray(nums) {
+  nums.sort((a, b) => a - b);
+  if (!nums[nums.length - 1]) return -1;
+  let n = nums.length;
+  let i;
+  debugger;
+  if (nums[0]) i = 0;
+  else {
+    let start = 0,
+      end = n - 1;
+    while (true) {
+      i = Math.floor((start + end) / 2);
+      if (nums[i] && !nums[i - 1]) break;
+      if (nums[i] === 0) start = i + 1;
+      else end = i - 1;
+    }
+  }
+  while (nums[i] < n - i) {
+    i++;
+  }
+  if (nums[i - 1] === n - i) return -1;
+  return n - i;
+}
+
