@@ -618,3 +618,16 @@ function equalSubstring(s, t, maxCost) {
 
   return maxLength;
 }
+
+// 1404. Number of Steps to Reduce a Number in Binary Representation to One
+
+function numSteps(s) {
+  let num = BigInt("0b" + s);
+  let res = 0;
+  while (num !== 1n) {
+    if (num % 2n === 0n) num /= 2n;
+    else num += 1n;
+    res++;
+  }
+  return res;
+}
