@@ -650,3 +650,20 @@ function countTriplets(arr) {
   }
   return count;
 }
+
+// 260. Single Number III
+
+function singleNumber(nums) {
+  let xorAll = 0;
+  for (let i = 0; i < nums.length; i++) {
+    xorAll ^= nums[i];
+  }
+  let setBit = xorAll & -xorAll;
+  let a = 0,
+    b = 0;
+  for (let j = 0; j < nums.length; j++) {
+    if (nums[j] & setBit) a ^= nums[j];
+    else b ^= nums[j];
+  }
+  return [a, b];
+}
