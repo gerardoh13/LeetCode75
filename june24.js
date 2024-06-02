@@ -7,3 +7,17 @@ function scoreOfString(s) {
   }
   return res;
 }
+
+// 344. Reverse String
+
+function reverseString(s) {
+  if (!s) return s;
+  let i = 0;
+  let j = s.length - 1;
+  while (i <= j) {
+    [s[i], s[j]] = [s[j], s[i]];
+    i++;
+    j--;
+  }
+  return s;
+}
