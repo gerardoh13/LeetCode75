@@ -32,3 +32,18 @@ function appendCharacters(s, t) {
   }
   return t.length - j;
 }
+
+// 409. Longest Palindrome
+
+function longestPalindrome(s) {
+  let ltrs = new Set();
+  let res = 0;
+  for (let i = 0; i < s.length; i++) {
+    if (ltrs.has(s[i])) {
+      ltrs.delete(s[i]);
+      res += 2;
+    } else ltrs.add(s[i]);
+  }
+  if (ltrs.size) res++;
+  return res;
+}
