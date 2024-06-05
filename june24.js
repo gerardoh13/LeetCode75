@@ -47,3 +47,40 @@ function longestPalindrome(s) {
   if (ltrs.size) res++;
   return res;
 }
+
+// 1002. Find Common Characters
+
+function commonChars(words) {
+  let map = new Map();
+  for (let char of words[0]) {
+    if (map.has(char)) map.set(char, map.get(char) + 1);
+    else map.set(char, 1);
+  }
+  if (words.length > 1) {
+    let freq = new Map();
+    for (let i = 0; i < words.length; i++) {
+      freq.clear();
+      for (let char of words[i]) {
+        if (freq.has(char)) freq.set(char, freq.get(char) + 1);
+        else freq.set(char, 1);
+      }
+      freq.forEach((value, key) => {
+        if (map.has(key)) {
+          map.set(key, Math.min(value, map.get(key)));
+        }
+      });
+      map.forEach((value, key) => {
+        if (!freq.has(key)) {
+          map.delete(key);
+        }
+      });
+    }
+  }
+  let res = [];
+  map.forEach((value, key) => {
+    for (let i = 0; i < value; i++) {
+      res.push(key);
+    }
+  });
+  return res
+}
