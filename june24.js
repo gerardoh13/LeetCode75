@@ -53,34 +53,54 @@ function longestPalindrome(s) {
 function commonChars(words) {
   let map = new Map();
   for (let char of words[0]) {
-    if (map.has(char)) map.set(char, map.get(char) + 1);
-    else map.set(char, 1);
+    map.set(char, map.get(char) + 1 || 1);
   }
-  if (words.length > 1) {
+  for (let i = 1; i < words.length; i++) {
     let freq = new Map();
-    for (let i = 0; i < words.length; i++) {
-      freq.clear();
-      for (let char of words[i]) {
-        if (freq.has(char)) freq.set(char, freq.get(char) + 1);
-        else freq.set(char, 1);
-      }
-      freq.forEach((value, key) => {
-        if (map.has(key)) {
-          map.set(key, Math.min(value, map.get(key)));
-        }
-      });
-      map.forEach((value, key) => {
-        if (!freq.has(key)) {
-          map.delete(key);
-        }
-      });
+    for (let char of words[i]) {
+      if (map.has(char)) freq.set(char, freq.get(char) + 1 || 1);
     }
+    map.forEach((count, char) => {
+      if (freq.has(char)) map.set(char, Math.min(count, freq.get(char)));
+      else map.delete(char);
+    });
   }
   let res = [];
-  map.forEach((value, key) => {
-    for (let i = 0; i < value; i++) {
-      res.push(key);
+  map.forEach((count, char) => {
+    for (let i = 0; i < count; i++) {
+      res.push(char);
     }
   });
-  return res
+  return res;
+}
+
+// 846. Hand of Straights
+
+function isNStraightHand(hand, groupSize) {
+  if (hand.length % groupSize) return false;
+  hand.sort((a, b) => b - a);
+  debugger;
+  while (hand.length) {
+    let i = hand.length - 1;
+    if (hand[i] === null) {
+      hand.pop();
+      continue;
+    }
+    let cur = hand.pop();
+    let count = 1;
+    i--;
+    while (count < groupSize) {
+      if (hand[i] === undefined) return false;
+      if (hand[i] === cur + 1) {
+        if (i === hand.length - 1) cur = hand.pop();
+        else {
+          cur = hand[i];
+          hand[i] = null;
+        }
+        count++;
+      }
+      i--;
+    }
+  }
+  return true;
 }
