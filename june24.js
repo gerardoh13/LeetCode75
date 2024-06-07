@@ -79,7 +79,6 @@ function commonChars(words) {
 function isNStraightHand(hand, groupSize) {
   if (hand.length % groupSize) return false;
   hand.sort((a, b) => b - a);
-  debugger;
   while (hand.length) {
     let i = hand.length - 1;
     if (hand[i] === null) {
@@ -103,4 +102,33 @@ function isNStraightHand(hand, groupSize) {
     }
   }
   return true;
+}
+
+// 648. Replace Words
+
+function replaceWords(dictionary, sentence) {
+  let map = new Map();
+  let lenMap = new Map();
+  sentence = sentence.split(" ");
+  for (let word of dictionary) {
+    if (map.has(word[0])) {
+      map.get(word[0]).add(word);
+      lenMap.set(word[0], Math.max(word.length, lenMap.get(word[0])));
+    } else {
+      map.set(word[0], new Set().add(word));
+      lenMap.set(word[0], word.length);
+    }
+  }
+  for (let i = 0; i < sentence.length; i++) {
+    if (map.has(sentence[i][0])) {
+      let maxLen = lenMap.get(sentence[i][0]);
+      for (let j = 1; j <= maxLen; j++) {
+        if (map.get(sentence[i][0]).has(sentence[i].substring(0, j))) {
+          sentence[i] = sentence[i].substring(0, j);
+          break;
+        }
+      }
+    }
+  }
+  return sentence.join(" ");
 }
