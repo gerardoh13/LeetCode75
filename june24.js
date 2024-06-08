@@ -132,3 +132,18 @@ function replaceWords(dictionary, sentence) {
   }
   return sentence.join(" ");
 }
+
+// 523. Continuous Subarray Sum
+
+function checkSubarraySum(nums, k) {
+  let prefixMod = 0;
+  let seen = new Map();
+  seen.set(0, -1);
+  for (let i = 0; i < nums.length; i++) {
+    prefixMod = (prefixMod + nums[i]) % k;
+    if (seen.has(prefixMod)) {
+      if (i - seen.get(prefixMod) > 1) return true;
+    } else seen.set(prefixMod, i);
+  }
+  return false;
+}
