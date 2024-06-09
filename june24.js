@@ -147,3 +147,19 @@ function checkSubarraySum(nums, k) {
   }
   return false;
 }
+
+// 974. Subarray Sums Divisible by K
+
+function subarraysDivByK(nums, k) {
+  let sums = Array(k).fill(0);
+  let mod = (n, m) => ((n % m) + m) % m;
+  let res = 0;
+  prev = 0;
+  for (let num of nums) {
+    prev = mod(prev + num, k);
+    if (prev === 0) res++;
+    res += sums[prev];
+    sums[prev]++;
+  }
+  return res;
+}
