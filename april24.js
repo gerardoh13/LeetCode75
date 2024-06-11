@@ -366,36 +366,6 @@ function firstMissingPositive(nums) {
   return i;
 }
 
-// 2910. Minimum Number of Groups to Create a Valid Assignment
-
-// function minGroupsForValidAssignment(balls) {
-//   let freq = {};
-//   for (let num of balls) {
-//     freq[num] = freq[num] + 1 || 1;
-//   }
-//   let values = Object.values(freq).sort((a, b) => a - b);
-//   let n = values.length - 1;
-//   let target = values[0] + 1;
-//   while (n >= 0) {
-//     if (values[n] > target) {
-//       let excess =
-//         Math.floor(values[n] / 2) > target
-//           ? values[n] - target
-//           : Math.floor(values[n] / 2);
-//       values.splice(n + 1, 0, excess);
-//       values[n] = values[n] - excess;
-//       if (excess < target) {
-//         target = excess + 1;
-//         n = values.length - 1;
-//       }
-//     }
-//     if (values[n + 1] > target) n++;
-//     else if (values[n] > target) continue;
-//     else n--;
-//   }
-//   return values.length;
-// }
-
 // 713. Subarray Product Less Than K
 
 function numSubarrayProductLessThanK(nums, k) {
@@ -757,10 +727,6 @@ function maximalRectangle() {
   }
   return maxArea;
 }
-
-// let matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
-
-// console.log(maximalRectangle(matrix))
 
 // 404. Sum of Left Leaves
 
@@ -1154,20 +1120,16 @@ function wonderfulSubstrings(word) {
   const n = word.length;
   const freq = new Array(1024).fill(0);
   freq[0] = 1;
-
   let bitmask = 0;
-
   for (let i = 0; i < n; i++) {
     const charIndex = word.charCodeAt(i) - "a".charCodeAt();
     bitmask ^= 1 << charIndex;
     count += freq[bitmask];
-
     for (let j = 0; j < 10; j++) {
       const newBitmask = bitmask ^ (1 << j);
       count += freq[newBitmask];
     }
     freq[bitmask]++;
   }
-
   return count;
 }

@@ -167,10 +167,30 @@ function subarraysDivByK(nums, k) {
 // 1051. Height Checker
 
 function heightChecker(heights) {
-  let expected = [...heights].sort((a, b) => a - b)
+  let expected = [...heights].sort((a, b) => a - b);
   let res = 0;
-  for (let i = 0; i < heights.length; i++){
-      if (expected[i] !== heights[i]) res++
+  for (let i = 0; i < heights.length; i++) {
+    if (expected[i] !== heights[i]) res++;
   }
-  return res
+  return res;
+}
+
+// 1122. Relative Sort Array
+
+function relativeSortArray(arr1, arr2) {
+  let map = new Map();
+  for (let i = 0; i < arr2.length; i++) {
+    map.set(arr2[i], i);
+  }
+  let res = Array(arr2.length)
+    .fill()
+    .map(() => new Array());
+  let rest = [];
+  for (let i = 0; i < arr1.length; i++) {
+    if (!map.has(arr1[i])) rest.push(arr1[i]);
+    else {
+      res[map.get(arr1[i])].push(arr1[i]);
+    }
+  }
+  return [...res.flat(), ...rest.sort((a, b) => a - b)];
 }

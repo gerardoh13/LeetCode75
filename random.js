@@ -180,3 +180,47 @@ function swapPairs(head) {
   }
   return head;
 }
+
+// 501. Find Mode in Binary Search Tree
+
+function findMode(root) {
+  if (!root) return;
+  let freq = {};
+  let mode = [root.val, 1];
+  function dfs(node) {
+    if (!node) return;
+    freq[node.val] = freq[node.val] + 1 || 1;
+    if (freq[node.val] > mode[1]) {
+      mode[0] = node.val;
+      mode[1] = freq[node.val];
+    }
+    dfs(node.left);
+    dfs(node.right);
+  }
+  dfs(root);
+  let res = [];
+  for (let k in freq) {
+    if (freq[k] === mode[1]) res.push(+k);
+  }
+  return res;
+}
+
+// 2910. Minimum Number of Groups to Create a Valid Assignment
+
+// function minGroupsForValidAssignment(balls) {
+//   let freq = {};
+//   for (let num of balls) {
+//     freq[num] = freq[num] + 1 || 1;
+//   }
+//   let values = Object.values(freq).sort((a, b) => a - b);
+//   let target = values[0] + 1;
+//   let extra = 0;
+//   debugger;
+//   for (let i = 1; i < values.length; i++) {
+//     if (values[i] > target) extra += Math.ceil(values[i] / target) - 1;
+//   }
+//   return values.length + extra;
+// }
+
+// let balls = [1,1,3,3,1,1,2,2,3,1,3,2]
+// minGroupsForValidAssignment(balls);
