@@ -194,3 +194,23 @@ function relativeSortArray(arr1, arr2) {
   }
   return [...res.flat(), ...rest.sort((a, b) => a - b)];
 }
+
+// 75. Sort Colors
+
+function sortColors(nums) {
+  let l = 0,
+    r = nums.length - 1;
+  for (let i = 0; i < nums.length; i++) {
+    if (!nums[i]) {
+      [nums[l], nums[i]] = [nums[i], nums[l]];
+      l++;
+    }
+    if (nums[i] === 2) {
+      [nums[i], nums[r]] = [nums[r], nums[i]];
+      r--;
+      i--;
+    }
+    if (i >= r) break;
+  }
+  return nums;
+}
