@@ -226,3 +226,18 @@ function minMovesToSeat(seats, students) {
   }
   return res;
 }
+
+// 945. Minimum Increment to Make Array Unique
+
+function minIncrementForUnique(nums) {
+  nums.sort((a, b) => a - b);
+  let res = 0;
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] <= nums[i - 1]) {
+      let steps = Math.abs(nums[i] - (nums[i - 1] + 1));
+      nums[i] += steps;
+      res += steps;
+    }
+  }
+  return res;
+}
