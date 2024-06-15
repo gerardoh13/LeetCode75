@@ -241,3 +241,102 @@ function minIncrementForUnique(nums) {
   }
   return res;
 }
+
+// 502. IPO
+
+function findMaximizedCapital(k, w, profits, capital) {
+  let projects = [];
+  let heap = new MaxHeap();
+  for(let i = 0; i < profits.length; i++){
+      projects.push([profits[i], capital[i]]);
+  }
+  projects.sort((a, b) => a[1] - b[1]);
+  let x = 0;
+  while(projects[x] && projects[x][1] <= w){
+      heap.add(projects[x][0]);
+      x++;
+  }
+  while(heap.values.length > 0 && k > 0){
+      w += heap.extractMax();
+      k--;
+      while(projects[x] && projects[x][1] <= w){
+          heap.add(projects[x][0]);
+          x++;
+      }
+  }
+  return w;
+}
+
+class MaxHeap {
+  constructor() {
+    this.values = [];
+  }
+  parent(index) {
+    return Math.floor((index - 1) / 2);
+  }
+  leftChild(index) {
+    return index * 2 + 1;
+  }
+  rightChild(index) {
+    return index * 2 + 2;
+  }
+  isLeaf(index) {
+    return (
+      index >= Math.floor(this.values.length / 2) &&
+      index <= this.values.length - 1
+    );
+  }
+  swap(index1, index2) {
+    [this.values[index1], this.values[index2]] = [
+      this.values[index2],
+      this.values[index1],
+    ];
+  }
+
+  heapifyDown(index) {
+    if (!this.isLeaf(index)) {
+      let leftChildIndex = this.leftChild(index),
+        rightChildIndex = this.rightChild(index),
+        largestIndex = index;
+      if (this.values[leftChildIndex] > this.values[largestIndex]) {
+        largestIndex = leftChildIndex;
+      }
+      if (this.values[rightChildIndex] >= this.values[largestIndex]) {
+        largestIndex = rightChildIndex;
+      }
+      if (largestIndex !== index) {
+        this.swap(index, largestIndex);
+        this.heapifyDown(largestIndex);
+      }
+    }
+  }
+  heapifyUp(index) {
+    let currentIndex = index,
+      parentIndex = this.parent(currentIndex);
+    while (
+      currentIndex > 0 &&
+      this.values[currentIndex] > this.values[parentIndex]
+    ) {
+      this.swap(currentIndex, parentIndex);
+      currentIndex = parentIndex;
+      parentIndex = this.parent(parentIndex);
+    }
+  }
+  add(element) {
+    this.values.push(element);
+    this.heapifyUp(this.values.length - 1);
+  }
+  extractMax() {
+    if (this.values.length === 1) return this.values.pop();
+    if (this.values.length < 1) return "heap is empty";
+    const max = this.values[0];
+    const end = this.values.pop();
+    this.values[0] = end;
+    this.heapifyDown(0);
+    return max;
+  }
+}
+
+//
+
+//
