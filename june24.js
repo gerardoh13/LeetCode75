@@ -247,22 +247,22 @@ function minIncrementForUnique(nums) {
 function findMaximizedCapital(k, w, profits, capital) {
   let projects = [];
   let heap = new MaxHeap();
-  for(let i = 0; i < profits.length; i++){
-      projects.push([profits[i], capital[i]]);
+  for (let i = 0; i < profits.length; i++) {
+    projects.push([profits[i], capital[i]]);
   }
   projects.sort((a, b) => a[1] - b[1]);
   let x = 0;
-  while(projects[x] && projects[x][1] <= w){
+  while (projects[x] && projects[x][1] <= w) {
+    heap.add(projects[x][0]);
+    x++;
+  }
+  while (heap.values.length > 0 && k > 0) {
+    w += heap.extractMax();
+    k--;
+    while (projects[x] && projects[x][1] <= w) {
       heap.add(projects[x][0]);
       x++;
-  }
-  while(heap.values.length > 0 && k > 0){
-      w += heap.extractMax();
-      k--;
-      while(projects[x] && projects[x][1] <= w){
-          heap.add(projects[x][0]);
-          x++;
-      }
+    }
   }
   return w;
 }
@@ -337,6 +337,21 @@ class MaxHeap {
   }
 }
 
-//
+// 330. Patching Array
 
-//
+function minPatches(nums, n) {
+  let miss = 1;
+  let result = 0;
+  let i = 0;
+
+  while (miss <= n) {
+    if (i < nums.length && nums[i] <= miss) {
+      miss += nums[i];
+      i++;
+    } else {
+      miss += miss;
+      result++;
+    }
+  }
+  return result;
+}
