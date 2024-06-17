@@ -355,3 +355,17 @@ function minPatches(nums, n) {
   }
   return result;
 }
+
+// 633. Sum of Square Numbers
+
+function judgeSquareSum(c) {
+  let b = Math.ceil(Math.sqrt(c));
+  let a = 0;
+  while (a <= b) {
+    let prod = a * a + b * b;
+    if (prod === c) return true;
+    else if (prod > c) b--;
+    else a++;
+  }
+  return false;
+}
