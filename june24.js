@@ -373,40 +373,21 @@ function judgeSquareSum(c) {
 // 826. Most Profit Assigning Work
 
 function maxProfitAssignment(difficulty, profit, worker) {
+  let ans = 0;
+  let jobs = [];
+  for (let i = 0; i < difficulty.length; i++) {
+    jobs.push([difficulty[i], profit[i]]);
+  }
+  jobs.sort((a, b) => a[0] - b[0]);
+  worker.sort((a, b) => a - b);
+  let j = 0;
   let maxProfit = 0;
-  let map = new Map();
-  for (let i = 0; i < profit.length; i++) {
-    if (map.get(difficulty[i])) {
-      if (profit[i] > map.get(difficulty[i])) map.set(difficulty[i], profit[i]);
-    } else map.set(difficulty[i], profit[i]);
-  }
-  difficulty = Array.from(map.keys()).sort((a, b) => a - b);
-  worker.sort((a, b) => b - a);
-  debugger;
-  if (worker[0] < difficulty[0]) return 0;
-  while (worker.length) {
-    let e = worker.pop();
-    let start = 0,
-      end = difficulty.length - 1;
-    while (start <= end) {
-      let mid = Math.floor((start + end) / 2);
-      if (map.get(e)) {
-        maxProfit += map.get(e);
-        break;
-      } else if (
-        difficulty[mid] < e &&
-        (e < difficulty[mid + 1] || mid === difficulty.length - 1)
-      ) {
-        maxProfit += map.get(difficulty[mid]);
-        break;
-      } else if (e < difficulty[mid]) end = mid - 1;
-      else start = mid + 1;
+  for (let i = 0; i < worker.length; i++) {
+    while (j < jobs.length && jobs[j][0] <= worker[i]) {
+      maxProfit = Math.max(maxProfit, jobs[j][1]);
+      j++;
     }
+    ans += maxProfit;
   }
-  return maxProfit;
+  return ans;
 }
-// [[35, 17], [47, 81], [52, 1], [68, 67], [86, 3]]
-let difficulty = [68, 35, 52, 47, 86];
-let profit =     [67, 17, 1, 81, 3];
-  worker = [92, 10, 85, 84, 82];
-console.log(maxProfitAssignment(difficulty, profit, worker));
