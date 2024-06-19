@@ -391,3 +391,34 @@ function maxProfitAssignment(difficulty, profit, worker) {
   }
   return ans;
 }
+
+// 1482. Minimum Number of Days to Make m Bouquets
+
+function minDays(bloomDay, m, k) {
+  let res = -1,
+    n = bloomDay.length;
+  if (m * k > n) return res;
+  function helper(mid) {
+    let count = 0;
+    let bouquets = 0;
+    for (let day of bloomDay) {
+      if (day <= mid) count++;
+      else count = 0;
+      if (count === k) {
+        bouquets++;
+        count = 0;
+      }
+    }
+    return bouquets;
+  }
+  let start = Math.min(...bloomDay);
+  let end = Math.max(...bloomDay);
+  while (start <= end) {
+    let mid = Math.floor((start + end) / 2);
+    if (helper(mid) >= m) {
+      res = mid;
+      end = mid - 1;
+    } else start = mid + 1;
+  }
+  return res;
+}
