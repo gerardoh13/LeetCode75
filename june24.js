@@ -422,3 +422,34 @@ function minDays(bloomDay, m, k) {
   }
   return res;
 }
+
+// 1552. Magnetic Force Between Two Balls
+
+function maxDistance(position, m) {
+  let res = 0,
+    n = position.length;
+  function helper(mid) {
+    let count = 1;
+    let prev = position[0];
+    for (let i = 1; i < n; i++) {
+      let curr = position[i];
+      if (curr - prev >= mid) {
+        count++;
+        prev = curr;
+      }
+      if (count === m) return true;
+    }
+    return false;
+  }
+  position.sort((a, b) => a - b);
+  let low = 0;
+  let high = position[n - 1];
+  while (low <= high) {
+    let mid = Math.floor((high + low) / 2);
+    if (helper(mid)) {
+      res = mid;
+      low = mid + 1;
+    } else high = mid - 1;
+  }
+  return res;
+}
