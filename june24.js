@@ -453,3 +453,30 @@ function maxDistance(position, m) {
   }
   return res;
 }
+
+// 1052. Grumpy Bookstore Owner
+
+function maxSatisfied(customers, grumpy, minutes) {
+  let i = 0,
+    j = 0;
+  let prev = 0;
+  let satisfied = 0;
+  while (j < minutes) {
+    satisfied += customers[j];
+    if (grumpy[j] && customers[j]) prev += customers[j];
+    j++;
+  }
+  let curr = prev;
+  while (j < customers.length) {
+    satisfied += customers[j];
+    if (grumpy[i] && customers[i]) {
+      curr -= customers[i];
+      satisfied -= customers[i];
+    }
+    if (grumpy[j] && customers[j]) curr += customers[j];
+    prev = Math.max(prev, curr);
+    j++;
+    i++;
+  }
+  return satisfied - curr + prev;
+}
