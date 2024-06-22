@@ -484,20 +484,20 @@ function maxSatisfied(customers, grumpy, minutes) {
 // 1248. Count Number of Nice Subarrays
 
 function numberOfSubarrays(nums, k) {
-  let res = 0;
-  let count = 0;
-  let prefixSum = new Map();
-  prefixSum.set(0, 1);
-  for (let i = 0; i < nums.length; i++) {
-    if (nums[i] % 2 !== 0) count++;
-    if (prefixSum.has(count - k)) res += prefixSum.get(count - k);
-    if (prefixSum.has(count)) prefixSum.set(count, prefixSum.get(count) + 1);
-    else prefixSum.set(count, 1);
+  function helper(nums, k) {
+    let res = 0;
+    let count = 0;
+    let l = 0;
+    for (let r = 0; r < nums.length; r++) {
+      if (nums[r] % 2 !== 0) count++;
+      while (count > k) {
+        if (nums[l] % 2 !== 0) count--;
+        l++;
+      }
+      res += r - l + 1;
+    }
+    return res;
   }
-  return res;
+  return helper(nums, k) - helper(nums, k - 1);
 }
 
-let nums = [1, 1, 2, 1, 1],
-  k = 3;
-
-console.log(numberOfSubarrays(nums, k));
