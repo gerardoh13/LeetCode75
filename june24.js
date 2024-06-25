@@ -526,7 +526,7 @@ function longestSubarray(nums, limit) {
   return nums.length - left - 1;
 }
 
-//
+// 1038. Binary Search Tree to Greater Sum Tree
 
 function minBitFlips(nums, k) {
   let flips = 0,
@@ -541,4 +541,23 @@ function minBitFlips(nums, k) {
     }
   }
   return total;
+}
+
+// 1038. Binary Search Tree to Greater Sum Tree
+
+function bstToGst(root) {
+  let sum = 0;
+  let stack = [];
+  let node = root;
+  while (stack.length || node) {
+    while (node) {
+      stack.push(node);
+      node = node.right;
+    }
+    node = stack.pop();
+    sum += node.val;
+    node.val = sum;
+    node = node.left;
+  }
+  return root;
 }
