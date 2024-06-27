@@ -583,3 +583,15 @@ function balanceBST(root) {
   }
   return constructTree(sortedArr);
 }
+
+// 1791. Find Center of Star Graph
+
+function findCenter(edges) {
+  let freq = new Map();
+  for (let i = 0; i < edges.length; i++) {
+    for (let node of edges[i]) {
+      freq.set(node, freq.get(node) + 1 || 1);
+      if (freq.get(node) >= 2) return node;
+    }
+  }
+}
