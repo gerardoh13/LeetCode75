@@ -595,3 +595,20 @@ function findCenter(edges) {
     }
   }
 }
+
+// 2285. Maximum Total Importance of Roads
+
+function maximumImportance(n, roads) {
+  let degree = new Array(n).fill(0);
+  for (const road of roads) {
+    degree[road[0]]++;
+    degree[road[1]]++;
+  }
+  let cities = Array.from({ length: n }, (_, i) => i);
+  cities.sort((a, b) => degree[b] - degree[a]);
+  let res = 0;
+  for (let i = 0; i < n; i++) {
+    res += (n - i) * degree[cities[i]];
+  }
+  return res;
+}
