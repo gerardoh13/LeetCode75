@@ -612,3 +612,30 @@ function maximumImportance(n, roads) {
   }
   return res;
 }
+
+// 2192. All Ancestors of a Node in a Directed Acyclic Graph
+
+function getAncestors(n, edges) {
+  let res = Array.from({ length: n }, () => []);
+  let graph = Array.from({ length: n }, () => []);
+
+  function dfs(parent, curr, visit) {
+    visit[curr] = true;
+    for (let dest of graph[curr]) {
+      if (!visit[dest]) {
+        res[dest].push(parent);
+        dfs(parent, dest, visit);
+      }
+    }
+  }
+  for (let edge of edges) {
+    graph[edge[0]].push(edge[1]);
+  }
+  for (let i = 0; i < n; i++) {
+    dfs(i, i, Array(n).fill(false));
+  }
+  for (let i = 0; i < n; i++) {
+    res[i].sort((a, b) => a - b);
+  }
+  return res;
+}
