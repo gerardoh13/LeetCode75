@@ -43,3 +43,21 @@ function minDifference(nums) {
   );
 }
 
+// 2181. Merge Nodes in Between Zeros
+
+function mergeNodes(head) {
+  let l = head;
+  let r = head;
+  let count = 0;
+  r = r.next;
+  while (r.next) {
+    count += r.val;
+    if (r.next.val === 0) {
+      l.val = count;
+      count = 0;
+      r.next.next ? (l = l.next) : (l.next = null);
+    }
+    r = r.next;
+  }
+  return head;
+}
