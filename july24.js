@@ -61,3 +61,33 @@ function mergeNodes(head) {
   }
   return head;
 }
+
+// 2058. Find the Minimum and Maximum Number of Nodes Between Critical Points
+
+function nodesBetweenCriticalPoints(head) {
+  if (!head.next.next) return [-1, -1];
+  let minMax = [Infinity, null];
+  let firstI, lastI, prev, prevIdx;
+  let i = 1;
+  while (head.next) {
+    if (
+      (head.val > prev && head.val > head.next.val) ||
+      (head.val < prev && head.val < head.next.val)
+    ) {
+      if (!firstI) {
+        firstI = i;
+        prevIdx = i;
+      } else {
+        minMax[0] = Math.min(minMax[0], i - prevIdx);
+        lastI = i;
+        prevIdx = i;
+      }
+    }
+    prev = head.val;
+    i++;
+    head = head.next;
+  }
+  if (!lastI) return [-1, -1];
+  minMax[1] = lastI - firstI;
+  return minMax;
+}
