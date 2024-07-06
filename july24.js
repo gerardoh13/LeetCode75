@@ -91,3 +91,9 @@ function nodesBetweenCriticalPoints(head) {
   minMax[1] = lastI - firstI;
   return minMax;
 }
+
+// 2582. Pass the Pillow
+
+function passThePillow(n, time){
+
+}
