@@ -94,6 +94,21 @@ function nodesBetweenCriticalPoints(head) {
 
 // 2582. Pass the Pillow
 
-function passThePillow(n, time){
+function passThePillow(n, time) {
+  let fullRounds = Math.floor(time / (n - 1));
+  let extraTime = Math.floor(time % (n - 1));
+  if (fullRounds % 2 === 0) return extraTime + 1;
+  return n - extraTime;
+}
 
+// 1518. Water Bottles
+
+function numWaterBottles(numBottles, numExchange) {
+  let res = numBottles;
+  while (numBottles >= numExchange) {
+    let exchange = Math.floor(numBottles / numExchange);
+    numBottles = numBottles - exchange * numExchange + exchange;
+    res += exchange;
+  }
+  return res;
 }
