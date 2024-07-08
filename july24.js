@@ -112,3 +112,18 @@ function numWaterBottles(numBottles, numExchange) {
   }
   return res;
 }
+
+// 1823. Find the Winner of the Circular Game
+
+function findTheWinner(n, k) {
+  let arr = [];
+  for (let i = 1; i <= n; i++) {
+    arr.push(i);
+  }
+  let start = 0;
+  while (arr.length > 1) {
+    arr.splice((start + k - 1) % arr.length, 1);
+    start = (start + k - 1) % (arr.length + 1);
+  }
+  return arr[0];
+}
