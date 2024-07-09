@@ -127,3 +127,18 @@ function findTheWinner(n, k) {
   }
   return arr[0];
 }
+
+// 1701. Average Waiting Time
+
+function averageWaitingTime(customers) {
+  let res = 0;
+  let start = 1;
+  for (let i = 0; i < customers.length; i++) {
+    start = Math.max(start, customers[i][0]);
+    let end = start + customers[i][1];
+    res += end - customers[i][0];
+    start = end;
+  }
+  return res / customers.length;
+}
+
