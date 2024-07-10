@@ -142,3 +142,15 @@ function averageWaitingTime(customers) {
   return res / customers.length;
 }
 
+// 1598. Crawler Log Folder
+
+function minOperations(logs) {
+  let res = 0;
+  for (let log of logs) {
+    if (log === "./" || (log === "../" && !res)) continue;
+    else if (log === "../") res--;
+    else res++;
+  }
+  return res;
+}
+
