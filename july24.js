@@ -154,3 +154,25 @@ function minOperations(logs) {
   return res;
 }
 
+// 1190. Reverse Substrings Between Each Pair of Parentheses
+
+function reverseParentheses(s) {
+  let arr = s.split("");
+  let stack = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === "(") {
+      stack.push(i);
+      arr[i] = "";
+    } else if (arr[i] === ")") {
+      arr[i] = "";
+      let start = stack.pop();
+      let end = i;
+      while (start < end) {
+        [arr[start], arr[end]] = [arr[end], arr[start]];
+        start++;
+        end--;
+      }
+    }
+  }
+  return arr.join("");
+}
