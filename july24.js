@@ -176,3 +176,32 @@ function reverseParentheses(s) {
   }
   return arr.join("");
 }
+
+// 1717. Maximum Score From Removing Substrings
+
+function maximumGain(s, x, y) {
+  let aCt = 0,
+    bCt = 0,
+    res = 0,
+    a = "a",
+    b = "b";
+  if (x < y) {
+    [x, y] = [y, x];
+    [a, b] = [b, a];
+  }
+  for (let char of s) {
+    if (char === a) aCt++;
+    else if (char === b) {
+      if (aCt) {
+        aCt--;
+        res += x;
+      } else bCt++;
+    } else {
+      res += Math.min(aCt, bCt) * y;
+      aCt = 0;
+      bCt = 0;
+    }
+  }
+  res += Math.min(aCt, bCt) * y;
+  return res;
+}
