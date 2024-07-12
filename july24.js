@@ -186,8 +186,7 @@ function maximumGain(s, x, y) {
     a = "a",
     b = "b";
   if (x < y) {
-    [x, y] = [y, x];
-    [a, b] = [b, a];
+    [a, b, x, y] = [b, a, y, x];
   }
   for (let char of s) {
     if (char === a) aCt++;
@@ -198,10 +197,49 @@ function maximumGain(s, x, y) {
       } else bCt++;
     } else {
       res += Math.min(aCt, bCt) * y;
-      aCt = 0;
-      bCt = 0;
+      aCt = bCt = 0;
     }
   }
   res += Math.min(aCt, bCt) * y;
   return res;
+}
+
+// 2751. Robot Collisions
+
+function survivedRobotsHealths(positions, healths, directions) {
+  let stack = [];
+  let bots = [...Array(healths.length).keys()];
+  bots.sort((a, b) => positions[a] - positions[b]);
+  for (let bot of bots) {
+    if (!stack.length) {
+      stack.push(bot);
+      continue;
+    }
+    let peek = stack[stack.length - 1];
+    if (directions[peek] === "R") {
+      if (directions[bot] === "R") {
+        stack.push(bot);
+        continue;
+      } else {
+        while (
+          stack.length &&
+          directions[peek] === "R" &&
+          healths[bot] > healths[peek]
+        ) {
+          healths[bot]--;
+          stack.pop();
+          peek = stack[stack.length - 1];
+        }
+        if (!stack.length) stack.push(bot);
+        else if (directions[peek] === "L") stack.push(bot);
+        else if (healths[peek] === healths[bot]) stack.pop();
+        else if (healths[peek] > healths[bot]) healths[peek]--;
+      }
+    } else stack.push(bot);
+  }
+  let res = [];
+  for (let bot of stack) {
+    res[bot] = healths[bot];
+  }
+  return res.filter((b) => b);
 }
