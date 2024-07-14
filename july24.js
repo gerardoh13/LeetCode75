@@ -244,51 +244,58 @@ function survivedRobotsHealths(positions, healths, directions) {
   return res.filter((b) => b);
 }
 
-    // function countOfAtoms(formula){
-    //     # Every element of matcher will be a quintuple
-    //     matcher = re.findall(r"([A-Z][a-z]*)(\d*)|(\()|(\))(\d*)", formula)
-    //     matcher.reverse()
+function countOfAtoms(formula) {
+  let stack = [],
+    curr = {},
+    i = 0;
 
-    //     # Map to store the count of atoms
-    //     final_map = defaultdict(int)
+  function readNextDigit(i) {
+    if (!formula[i]?.match(/[0-9]/)) return [1, i];
+    let res = 0;
+    while (formula[i]?.match(/[0-9]/)) {
+      res = res * 10 + +formula[i++];
+    }
+    return [res, i];
+  }
 
-    //     # Stack to keep track of the nested multiplicities
-    //     stack = [1]
+  function readNextElement(i) {
+    if (!formula[i].match(/[A-Z]/)) return null;
+    let res = formula[i++];
+    while (formula[i]?.match(/[a-z]/)) {
+      res += formula[i++];
+    }
+    return [res, i];
+  }
 
-    //     # Current Multiplicity
-    //     running_mul = 1
+  while (i < formula.length) {
+    if (formula[i] === "(") {
+      stack.push(curr);
+      curr = {};
+      i++;
+    } else if (formula[i] === ")") {
+      const [mult, newI] = readNextDigit(++i);
+      i = newI;
+      Object.keys(curr).forEach((key) => (curr[key] *= mult));
+      const last = stack[stack.length - 1];
+      Object.keys(last).forEach(
+        (key) => (last[key] = last[key] + (curr[key] ?? 0))
+      );
+      Object.keys(curr).forEach((key) => {
+        if (last[key] === undefined) {
+          last[key] = curr[key];
+        }
+      });
+      curr = stack.pop();
+    } else {
+      const [ele, newI] = readNextElement(i);
+      i = newI;
+      const [c, nI] = readNextDigit(i);
+      i = nI;
+      curr[ele] = (curr[ele] ?? 0) + c;
+    }
+  }
 
-    //     # Parse the formula
-    //     for atom, count, left, right, multiplier in matcher:
-    //         # If atom, add it to the final map
-    //         if atom:
-    //             if count:
-    //                 final_map[atom] += int(count) * running_mul
-    //             else:
-    //                 final_map[atom] += 1 * running_mul
-
-    //         # If the right parenthesis, multiply the running_mul
-    //         elif right:
-    //             if not multiplier:
-    //                 multiplier = 1
-    //             else:
-    //                 multiplier = int(multiplier)
-    //             running_mul *= multiplier
-    //             stack.append(multiplier)
-
-    //         # If left parenthesis, divide the running_mul
-    //         elif left:
-    //             running_mul //= stack.pop()
-
-    //     # Sort the final map
-    //     final_map = dict(sorted(final_map.items()))
-
-    //     # Generate the answer string
-    //     ans = ""
-    //     for atom in final_map:
-    //         ans += atom
-    //         if final_map[atom] > 1:
-    //             ans += str(final_map[atom])
-
-    //     return ans
-    // }
+  return Object.entries(curr)
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .reduce((r, [key, val]) => (r += `${key}${val === 1 ? "" : val}`), "");
+}
