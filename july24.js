@@ -299,3 +299,30 @@ function countOfAtoms(formula) {
     .sort((a, b) => a[0].localeCompare(b[0]))
     .reduce((r, [key, val]) => (r += `${key}${val === 1 ? "" : val}`), "");
 }
+
+// 2196. Create Binary Tree From Descriptions
+
+function createBinaryTree(descriptions) {
+  let map = new Map();
+  let children = new Set();
+  let posRoots = new Set();
+  for (let desc of descriptions) {
+    children.add(desc[1]);
+    if (!children.has(desc[0])) posRoots.add(desc[0]);
+    if (posRoots.has(desc[1])) posRoots.delete(desc[1]);
+    if (map.has(desc[0])) parent = map.get(desc[0]);
+    else {
+      parent = new TreeNode(desc[0]);
+      map.set(desc[0], parent);
+    }
+    let child;
+    if (map.has(desc[1])) child = map.get(desc[1]);
+    else {
+      child = new TreeNode(desc[1]);
+      map.set(desc[1], child);
+    }
+    let dir = desc[2] == 1 ? "left" : "right";
+    parent[dir] = child;
+  }
+  return map.get(posRoots.values().next().value);
+}
