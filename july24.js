@@ -326,3 +326,36 @@ function createBinaryTree(descriptions) {
   }
   return map.get(posRoots.values().next().value);
 }
+
+// 2096. Step-By-Step Directions From a Binary Tree Node to Another
+
+function getDirections(root, startValue, destValue) {
+  let startPath = [];
+  let destPath = [];
+
+  function dfs(node, target, path) {
+    if (!node) return;
+    if (node.val == target) return node;
+    path.push("L");
+    if (dfs(node.left, target, path)) return true;
+    path.pop();
+    path.push("R");
+    if (dfs(node.right, target, path)) return true;
+    path.pop();
+    return false;
+  }
+  dfs(root, startValue, startPath);
+  dfs(root, destValue, destPath);
+  let commonPathLength = 0;
+  while (
+    commonPathLength < startPath.length &&
+    commonPathLength < destPath.length &&
+    startPath[commonPathLength] == destPath[commonPathLength]
+  )
+    commonPathLength++;
+  let directions = Array(startPath.length - commonPathLength).fill("U");
+  for (let i = commonPathLength; i < destPath.length; i++) {
+    directions.push(destPath[i]);
+  }
+  return directions.join("");
+}
