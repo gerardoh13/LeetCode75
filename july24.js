@@ -359,3 +359,46 @@ function getDirections(root, startValue, destValue) {
   }
   return directions.join("");
 }
+
+// 1110. Delete Nodes And Return Forest
+
+function delNodes(root, to_delete) {
+  if (!root) return [];
+  let res = [];
+  delSet = new Set(to_delete);
+  if (!delSet.has(root.val)) res.push(root);
+  function dfs(node) {
+    if (!node) return;
+    let left = node.left;
+    let right = node.right;
+    if (delSet.has(node.val)) {
+      node.left = null;
+      node.right = null;
+      if (left && !delSet.has(left.val)) res.push(left);
+      if (right && !delSet.has(right.val)) res.push(right);
+    }
+    dfs(left);
+    dfs(right);
+  }
+  debugger
+  dfs(root);
+  return res;
+}
+
+class TreeNode {
+  constructor(val, left, right) {
+    this.val = val === undefined ? 0 : val;
+    this.left = left === undefined ? null : left;
+    this.right = right === undefined ? null : right;
+  }
+}
+
+let n7 = new TreeNode(7)
+let n6 = new TreeNode(6)
+let n5 = new TreeNode(5)
+let n4 = new TreeNode(4)
+let n3 = new TreeNode(3, n6, n7)
+let n2 = new TreeNode(2, n4, n5)
+let n1 = new TreeNode(1, n2, n3)
+
+console.log(delNodes(r, [3, 5]))
