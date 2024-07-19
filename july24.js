@@ -448,3 +448,15 @@ function countPairs(root, distance) {
   dfs(root);
   return count;
 }
+
+// 1380. Lucky Numbers in a Matrix
+
+function luckyNumbers(matrix) {
+  for (let row of matrix) {
+    min = Math.min(...row);
+    let i = row.indexOf(min);
+    let col = matrix.map((r) => r[i]);
+    if (Math.max(...col) === min) return [min];
+  }
+  return [];
+}
