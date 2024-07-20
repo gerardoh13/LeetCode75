@@ -460,3 +460,24 @@ function luckyNumbers(matrix) {
   }
   return [];
 }
+
+// 1605. Find Valid Matrix Given Row and Column Sums
+
+function restoreMatrix(rowSum, colSum) {
+  let res = Array(rowSum.length)
+    .fill()
+    .map(() => Array(colSum.length).fill(0));
+  let [i, j] = [0, 0];
+  while (i < rowSum.length && j < colSum.length) {
+    res[i][j] = Math.min(rowSum[i], colSum[j]);
+    rowSum[i] -= res[i][j];
+    colSum[j] -= res[i][j];
+    if (rowSum[i] === 0) i++;
+    else j++;
+  }
+  return res;
+}
+
+let rowSum = [3, 8],
+  colSum = [4, 7];
+restoreMatrix(rowSum, colSum);
