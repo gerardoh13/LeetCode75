@@ -539,3 +539,11 @@ function buildMatrix(k, rowConditions, colConditions) {
 
   return result;
 }
+
+// 2418. Sort the People
+
+function sortPeople(names, heights) {
+  let arr = names.map((name, i) => [name, heights[i]]);
+  arr.sort((a, b) => b[1] - a[1]);
+  return arr.map((e) => e[0]);
+}
