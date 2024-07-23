@@ -547,3 +547,22 @@ function sortPeople(names, heights) {
   arr.sort((a, b) => b[1] - a[1]);
   return arr.map((e) => e[0]);
 }
+
+// 1636. Sort Array by Increasing Frequency
+
+function frequencySort(nums) {
+  let freq = {};
+  for (let num of nums) {
+    freq[num] = freq[num] + 1 || 1;
+  }
+  let sorted = Object.entries(freq).sort((a, b) => {
+    if (a[1] == b[1]) {
+      return +b[0] - +a[0];
+    } else return a[1] - b[1];
+  });
+  let res = [];
+  for (let arr of sorted) {
+    for (let i = 0; i < arr[1]; i++) res.push(+arr[0]);
+  }
+  return res;
+}
