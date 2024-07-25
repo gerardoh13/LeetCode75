@@ -566,3 +566,39 @@ function frequencySort(nums) {
   }
   return res;
 }
+
+// 2191. Sort the Jumbled Numbers
+
+function sortJumbled(mapping, nums) {
+  let map = new Map();
+  function sortBy(int) {
+    if (map.get(int)) return map.get(int);
+    let newVal = "";
+    for (let char of int.toString()) newVal += mapping[+char].toString();
+    map.set(int, +newVal);
+    return +newVal;
+  }
+  return nums.sort((a, b) => sortBy(a) - sortBy(b));
+}
+
+// 912. Sort an Array
+
+var sortArray = function (arr) {
+  if (arr.length < 2) return arr;
+  let mid = Math.floor(arr.length / 2);
+  let left = sortArray(arr.slice(0, mid));
+  let right = sortArray(arr.slice(mid));
+  return merge(left, right);
+};
+
+function merge(arr1, arr2) {
+  let res = [];
+  let [i, j] = [0, 0];
+  while (i < arr1.length && j < arr2.length) {
+    if (arr1[i] < arr2[j]) res.push(arr1[i++]);
+    else res.push(arr2[j++]);
+  }
+  while (i < arr1.length) res.push(arr1[i++]);
+  while (j < arr2.length) res.push(arr2[j++]);
+  return res;
+}
