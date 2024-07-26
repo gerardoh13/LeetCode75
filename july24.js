@@ -602,3 +602,36 @@ function merge(arr1, arr2) {
   while (j < arr2.length) res.push(arr2[j++]);
   return res;
 }
+
+// 1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance
+
+function findTheCity(n, edges, distanceThreshold) {
+  const dist = Array.from({ length: n }, () => new Array(n).fill(10001));
+  for (let i = 0; i < n; i++) {
+    dist[i][i] = 0;
+  }
+  for (const [u, v, w] of edges) {
+    dist[u][v] = w;
+    dist[v][u] = w;
+  }
+  for (let k = 0; k < n; k++) {
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n; j++) {
+        dist[i][j] = Math.min(dist[i][j], dist[i][k] + dist[k][j]);
+      }
+    }
+  }
+  let minReachableCities = n;
+  let result = -1;
+  for (let i = 0; i < n; i++) {
+    const reachableCities = dist[i].filter(
+      (d) => d <= distanceThreshold
+    ).length;
+    if (reachableCities <= minReachableCities) {
+      minReachableCities = reachableCities;
+      result = i;
+    }
+  }
+
+  return result;
+}
