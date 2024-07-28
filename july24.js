@@ -632,6 +632,68 @@ function findTheCity(n, edges, distanceThreshold) {
       result = i;
     }
   }
-
   return result;
+}
+
+// 2976. Minimum Cost to Convert String I
+
+function minimumCost(source, target, original, changed, cost) {
+  const dist = Array.from({ length: 26 }, () => Array(26).fill(Infinity));
+  for (let i = 0; i < 26; i++) {
+    dist[i][i] = 0;
+  }
+  for (let i = 0; i < original.length; i++) {
+    const from = original[i].charCodeAt(0) - "a".charCodeAt(0);
+    const to = changed[i].charCodeAt(0) - "a".charCodeAt(0);
+    dist[from][to] = Math.min(dist[from][to], cost[i]);
+  }
+  for (let k = 0; k < 26; k++) {
+    for (let i = 0; i < 26; i++) {
+      for (let j = 0; j < 26; j++) {
+        if (dist[i][k] < Infinity && dist[k][j] < Infinity)
+          dist[i][j] = Math.min(dist[i][j], dist[i][k] + dist[k][j]);
+      }
+    }
+  }
+  let totalCost = 0;
+  for (let i = 0; i < source.length; i++) {
+    const srcChar = source[i].charCodeAt(0) - "a".charCodeAt(0);
+    const tgtChar = target[i].charCodeAt(0) - "a".charCodeAt(0);
+    if (dist[srcChar][tgtChar] === Infinity) return -1;
+    totalCost += dist[srcChar][tgtChar];
+  }
+  return totalCost;
+}
+
+// 2045. Second Minimum Time to Reach Destination
+
+function secondMinimum(n, edges, time, change) {
+  const graph = Array.from({ length: n + 1 }, () => []);
+  for (const [u, v] of edges) {
+    graph[u].push(v);
+    graph[v].push(u);
+  }
+  const dist1 = new Array(n + 1).fill(-1);
+  const dist2 = new Array(n + 1).fill(-1);
+  dist1[1] = 0;
+  const queue = [[1, 1]];
+  while (queue.length > 0) {
+    const [x, freq] = queue.shift();
+    const t = freq === 1 ? dist1[x] : dist2[x];
+    let newTime;
+    if (Math.floor(t / change) % 2 !== 0)
+      newTime = change * (Math.floor(t / change) + 1) + time;
+    else newTime = t + time;
+    for (const y of graph[x]) {
+      if (dist1[y] === -1) {
+        dist1[y] = newTime;
+        queue.push([y, 1]);
+      } else if (dist2[y] === -1 && dist1[y] !== newTime) {
+        if (y === n) return newTime;
+        dist2[y] = newTime;
+        queue.push([y, 2]);
+      }
+    }
+  }
+  return 0;
 }
