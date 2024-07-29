@@ -697,3 +697,38 @@ function secondMinimum(n, edges, time, change) {
   }
   return 0;
 }
+
+// 1395. Count Number of Teams
+
+function numTeams(rating) {
+  let totalTeams = 0;
+  const count = rating.length;
+  for (let curr = 0; curr < count; curr++) {
+    totalTeams += countTeams(rating, curr, count);
+  }
+  return totalTeams;
+}
+
+function countTeams(rating, curr, count) {
+  const leftCounts = countSmallerAndLarger(rating, 0, curr, rating[curr]);
+  const rightCounts = countSmallerAndLarger(
+    rating,
+    curr + 1,
+    count,
+    rating[curr]
+  );
+
+  const ascendingTeams = leftCounts[0] * rightCounts[1];
+  const descendingTeams = leftCounts[1] * rightCounts[0];
+  return ascendingTeams + descendingTeams;
+}
+
+function countSmallerAndLarger(rating, start, end, reference) {
+  let smaller = 0,
+    larger = 0;
+  for (let i = start; i < end; i++) {
+    if (rating[i] < reference) smaller++;
+    else if (rating[i] > reference) larger++;
+  }
+  return [smaller, larger];
+}
