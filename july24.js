@@ -732,3 +732,14 @@ function countSmallerAndLarger(rating, start, end, reference) {
   }
   return [smaller, larger];
 }
+
+// 1653. Minimum Deletions to Make String Balanced
+
+function minimumDeletions(s) {
+  let [res, bCount] = [0, 0];
+  for (let char of s) {
+    if (char === "b") bCount++;
+    else res = Math.min(res + 1, bCount);
+  }
+  return res;
+}
