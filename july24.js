@@ -743,3 +743,29 @@ function minimumDeletions(s) {
   }
   return res;
 }
+
+// 1105. Filling Bookcase Shelves
+
+function minHeightShelves(books, shelfWidth) {
+  let n = books.length;
+  let dp = Array(n + 1)
+    .fill()
+    .map(() => [0]);
+
+  dp[0] = 0;
+  dp[1] = books[0][1];
+
+  for (let i = 2; i < n + 1; i++) {
+    let remainingShelfWidth = shelfWidth - books[i - 1][0];
+    let maxHeight = books[i - 1][1];
+    dp[i] = books[i - 1][1] + dp[i - 1];
+    let j = i - 1;
+    while (j > 0 && remainingShelfWidth - books[j - 1][0] >= 0) {
+      maxHeight = Math.max(maxHeight, books[j - 1][1]);
+      remainingShelfWidth -= books[j - 1][0];
+      dp[i] = Math.min(dp[i], maxHeight + dp[j - 1]);
+      j--;
+    }
+  }
+  return dp[n];
+}
