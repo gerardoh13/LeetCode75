@@ -769,3 +769,13 @@ function minHeightShelves(books, shelfWidth) {
   }
   return dp[n];
 }
+
+// 2678. Number of Senior Citizens
+
+function countSeniors(details) {
+  let res = 0;
+  for (let str of details) {
+    if (+(str[11] + str[12]) > 60) res++;
+  }
+  return res;
+}
