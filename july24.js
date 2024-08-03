@@ -770,31 +770,5 @@ function minHeightShelves(books, shelfWidth) {
   return dp[n];
 }
 
-// 2678. Number of Senior Citizens
 
-function countSeniors(details) {
-  let res = 0;
-  for (let str of details) {
-    if (+(str[11] + str[12]) > 60) res++;
-  }
-  return res;
-}
-
-// 2134. Minimum Swaps to Group All 1's Together II
-
-function minSwaps(nums) {
-  let res = Infinity;
-  let ones = nums.reduce((prev, curr) => prev + curr, 0);
-  let count = nums[0];
-  let end = 0;
-  for (let i = 0; i < nums.length; i++) {
-    if (i) count -= nums[i - 1];
-    while (end - i + 1 < ones) {
-      end++;
-      count += nums[end % nums.length];
-    }
-    res = Math.min(res, ones - count);
-  }
-  return res;
-}
 
