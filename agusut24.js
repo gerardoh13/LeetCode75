@@ -39,3 +39,21 @@ function canBeEqual(target, arr) {
   }
   return true;
 }
+
+// 1508. Range Sum of Sorted Subarray Sums
+
+function rangeSum(nums, n, left, right) {
+  let arr = [];
+  for (let i = 0; i < nums.length; i++) {
+    let num = nums[i];
+    arr.push(num);
+    for (let j = i + 1; j < nums.length; j++) {
+      num += nums[j];
+      arr.push(num);
+    }
+  }
+  arr.sort((a, b) => a - b);
+  return arr
+    .slice(--left, right)
+    .reduce((prev, curr) => (prev + curr) % (1e9 + 7), 0);
+}
