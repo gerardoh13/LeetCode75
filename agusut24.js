@@ -57,3 +57,11 @@ function rangeSum(nums, n, left, right) {
     .slice(--left, right)
     .reduce((prev, curr) => (prev + curr) % (1e9 + 7), 0);
 }
+
+// 2053. Kth Distinct String in an Array
+
+function kthDistinct(arr, k) {
+  let freq = new Map();
+  for (let s of arr) freq.set(s, freq.get(s) + 1 || 1);
+  return arr.filter((s) => freq.get(s) === 1)[--k] || "";
+}
