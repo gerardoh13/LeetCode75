@@ -65,3 +65,21 @@ function kthDistinct(arr, k) {
   for (let s of arr) freq.set(s, freq.get(s) + 1 || 1);
   return arr.filter((s) => freq.get(s) === 1)[--k] || "";
 }
+
+// 3016. Minimum Number of Pushes to Type Word II
+
+function minimumPushes(word) {
+  let freq = {};
+  let res = 0;
+  for (let char of word) {
+    freq[char] = freq[char] + 1 || 1;
+  }
+  let freqArr = Object.entries(freq).sort((a, b) => b[1] - a[1]);
+  let keyPress = 1;
+  for (let i = 0; i < freqArr.length; i++) {
+    if (i > 1 && !(i % 8)) keyPress++;
+    res += freqArr[i][1] * keyPress;
+  }
+  return res;
+}
+
