@@ -125,7 +125,7 @@ function numberToWords(num) {
     1000000000: "Billion",
   };
   function helper(chunk) {
-    chunk = parseInt(chunk).toString()
+    chunk = parseInt(chunk).toString();
     let res = [];
     if (!+chunk) return;
     if (chunk.length === 3) {
@@ -158,3 +158,27 @@ function numberToWords(num) {
   }
   return ans.join(" ");
 }
+
+// 885. Spiral Matrix III
+
+function spiralMatrixIII(rows, cols, rStart, cStart) {
+  let count = rows * cols - 1;
+  let [steps, dir] = [1, 0];
+  let increase = false;
+  let res = [[rStart, cStart]];
+  while (count) {
+    for (let i = 0; i < steps; i++) {
+      !dir ? cStart++ : dir == 1 ? rStart++ : dir == 2 ? cStart-- : rStart--;
+      if (rStart < 0 || rStart >= rows || cStart < 0 || cStart >= cols)
+        continue;
+      res.push([rStart, cStart]);
+      count--;
+    }
+    if (dir < 3) dir++;
+    else dir = 0;
+    if (increase) steps++;
+    increase = !increase;
+  }
+  return res;
+}
+
