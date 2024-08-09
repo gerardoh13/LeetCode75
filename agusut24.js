@@ -182,3 +182,55 @@ function spiralMatrixIII(rows, cols, rStart, cStart) {
   return res;
 }
 
+// 840. Magic Squares In Grid
+
+function numMagicSquaresInside(grid) {
+  if (grid.length < 3 || grid[0].length < 3) return 0;
+  res = 0;
+  function isMagic(i, j) {
+    let firstRow = [grid[i][j], grid[i][j + 1], grid[i][j + 2]];
+    if (firstRow.some((val) => val > 9)) return false;
+    if (
+      firstRow[0] === firstRow[1] ||
+      firstRow[0] === firstRow[2] ||
+      firstRow[1] === firstRow[2] ||
+      !firstRow[0] ||
+      !firstRow[1] ||
+      !firstRow[2]
+    )
+      return false;
+    let target = firstRow.reduce((p, c) => p + c, 0);
+    let square = [
+      [grid[i + 1][j], grid[i + 1][j + 1], grid[i + 1][j + 2]],
+      [grid[i + 2][j], grid[i + 2][j + 1], grid[i + 2][j + 2]],
+      [grid[i][j], grid[i + 1][j], grid[i + 2][j]],
+      [grid[i][j + 1], grid[i + 1][j + 1], grid[i + 2][j + 1]],
+      [grid[i][j + 2], grid[i + 1][j + 2], grid[i + 2][j + 2]],
+      [grid[i][j], grid[i + 1][j + 1], grid[i + 2][j + 2]],
+      [grid[i][j + 2], grid[i + 1][j + 1], grid[i + 2][j]],
+    ];
+    if (
+      square.some(
+        (arr) =>
+          arr.some((val) => val > 9) ||
+          arr.reduce((p, c) => p + c, 0) !== target ||
+          arr[0] === arr[1] ||
+          arr[0] === arr[2] ||
+          arr[1] === arr[2] ||
+          !arr[0] ||
+          !arr[1] ||
+          !arr[2]
+      )
+    )
+      return false;
+    return true;
+  }
+  for (let i = 0; i < grid.length - 2; i++) {
+    for (let j = 0; j < grid[0].length - 2; j++) {
+      if (isMagic(i, j)) res++;
+    }
+  }
+  return res;
+}
+
+
