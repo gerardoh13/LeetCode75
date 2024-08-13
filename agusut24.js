@@ -291,48 +291,95 @@ function regionsBySlashes(grid) {
 
 //
 
-function minDays(grid){
+function minDays(grid) {
   const countIslands = () => {
     const seen = new Set();
     let islands = 0;
 
     const dfs = (r, c) => {
-        const stack = [[r, c]];
-        while (stack.length > 0) {
-            const [x, y] = stack.pop();
-            for (const [dx, dy] of [[-1, 0], [1, 0], [0, -1], [0, 1]]) {
-                const nx = x + dx, ny = y + dy;
-                if (nx >= 0 && nx < grid.length && ny >= 0 && ny < grid[0].length && grid[nx][ny] === 1 && !seen.has(`${nx},${ny}`)) {
-                    seen.add(`${nx},${ny}`);
-                    stack.push([nx, ny]);
-                }
-            }
+      const stack = [[r, c]];
+      while (stack.length > 0) {
+        const [x, y] = stack.pop();
+        for (const [dx, dy] of [
+          [-1, 0],
+          [1, 0],
+          [0, -1],
+          [0, 1],
+        ]) {
+          const nx = x + dx,
+            ny = y + dy;
+          if (
+            nx >= 0 &&
+            nx < grid.length &&
+            ny >= 0 &&
+            ny < grid[0].length &&
+            grid[nx][ny] === 1 &&
+            !seen.has(`${nx},${ny}`)
+          ) {
+            seen.add(`${nx},${ny}`);
+            stack.push([nx, ny]);
+          }
         }
+      }
     };
 
     for (let i = 0; i < grid.length; i++) {
-        for (let j = 0; j < grid[0].length; j++) {
-            if (grid[i][j] === 1 && !seen.has(`${i},${j}`)) {
-                islands++;
-                seen.add(`${i},${j}`);
-                dfs(i, j);
-            }
+      for (let j = 0; j < grid[0].length; j++) {
+        if (grid[i][j] === 1 && !seen.has(`${i},${j}`)) {
+          islands++;
+          seen.add(`${i},${j}`);
+          dfs(i, j);
         }
+      }
     }
     return islands;
-};
+  };
 
-if (countIslands() !== 1) return 0;
+  if (countIslands() !== 1) return 0;
 
-for (let i = 0; i < grid.length; i++) {
+  for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[0].length; j++) {
-        if (grid[i][j] === 1) {
-            grid[i][j] = 0;
-            if (countIslands() !== 1) return 1;
-            grid[i][j] = 1;
-        }
+      if (grid[i][j] === 1) {
+        grid[i][j] = 0;
+        if (countIslands() !== 1) return 1;
+        grid[i][j] = 1;
+      }
     }
+  }
+
+  return 2;
 }
 
-return 2;
+// 703. Kth Largest Element in a Stream
+
+class KthLargest {
+  constructor(k, nums) {
+    this.k = k;
+    this.nums = nums;
+  }
+  add = (num) => {
+    this.nums.push(num);
+    this.nums.sort((a, b) => a - b);
+    return this.nums[this.nums.length - this.k];
+  };
+}
+
+// 40. Combination Sum II
+
+function combinationSum(candidates, target) {
+  let res = [];
+  function backtrack(target, idx, path) {
+    if (target < 0) return;
+    if (target == 0) {
+      res.push(path);
+      return;
+    }
+    for (let i = idx; i < candidates.length; i++) {
+      if (i > idx && candidates[i] == candidates[i - 1]) continue;
+      backtrack(target - candidates[i], i + 1, [...path, candidates[i]]);
+    }
+  }
+  candidates.sort((a, b) => a - b);
+  backtrack(target, 0, []);
+  return res;
 }
