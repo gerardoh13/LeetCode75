@@ -383,3 +383,79 @@ function combinationSum(candidates, target) {
   backtrack(target, 0, []);
   return res;
 }
+
+// 719. Find K-th Smallest Pair Distance
+
+function smallestDistancePair(numbers, k) {
+  numbers.sort((a, b) => a - b);
+  let minDistance = 0;
+  let maxDistance = numbers[numbers.length - 1] - numbers[0];
+
+  while (minDistance < maxDistance) {
+    let midDistance = Math.floor((minDistance + maxDistance) / 2);
+    if (countPairsWithinDistance(numbers, midDistance) < k) {
+      minDistance = midDistance + 1;
+    } else {
+      maxDistance = midDistance;
+    }
+  }
+
+  return minDistance;
+}
+
+function countPairsWithinDistance(numbers, distance) {
+  let count = 0;
+  let left = 0;
+  for (let right = 1; right < numbers.length; right++) {
+    while (numbers[right] - numbers[left] > distance) {
+      left++;
+    }
+    count += right - left;
+  }
+  return count;
+}
+
+// 860. Lemonade Change
+
+function lemonadeChange(bills) {
+  let five = 0;
+  let ten = 0;
+  for (const bill of bills) {
+    if (bill == 5) {
+      five++;
+    } else if (bill == 10) {
+      if (five >= 1) {
+        five--;
+        ten++;
+      } else {
+        return false;
+      }
+    } else {
+      if (five >= 1 && ten >= 1) {
+        ten--;
+        five--;
+      } else if (five >= 3) {
+        five -= 3;
+      } else {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+// 624. Maximum Distance in Arrays
+
+function maxDistance(arrays){
+  let globalMin = arrays[0][0];
+  let globalMax = arrays[0][arrays[0].length - 1];
+  let result = 0;
+  for (let i = 1; i < arrays.length; i++) {
+      const localMin = arrays[i][0];
+      const localMax = arrays[i][arrays[i].length - 1];
+      result = Math.max(result, Math.max(localMax - globalMin, globalMax - localMin));
+      globalMin = Math.min(globalMin, localMin);
+      globalMax = Math.max(globalMax, localMax);
+  }
+  return result;
+}
