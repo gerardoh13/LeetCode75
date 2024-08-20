@@ -446,16 +446,58 @@ function lemonadeChange(bills) {
 
 // 624. Maximum Distance in Arrays
 
-function maxDistance(arrays){
+function maxDistance(arrays) {
   let globalMin = arrays[0][0];
   let globalMax = arrays[0][arrays[0].length - 1];
   let result = 0;
   for (let i = 1; i < arrays.length; i++) {
-      const localMin = arrays[i][0];
-      const localMax = arrays[i][arrays[i].length - 1];
-      result = Math.max(result, Math.max(localMax - globalMin, globalMax - localMin));
-      globalMin = Math.min(globalMin, localMin);
-      globalMax = Math.max(globalMax, localMax);
+    const localMin = arrays[i][0];
+    const localMax = arrays[i][arrays[i].length - 1];
+    result = Math.max(
+      result,
+      Math.max(localMax - globalMin, globalMax - localMin)
+    );
+    globalMin = Math.min(globalMin, localMin);
+    globalMax = Math.max(globalMax, localMax);
   }
   return result;
+}
+
+// 264. Ugly Number II
+
+function nthUglyNumber(n) {
+  let cache = [1];
+  let p2 = 0;
+  let p3 = 0;
+  let p5 = 0;
+  let m, r2, r3, r5;
+  let i = cache.length;
+  for (; i < n; i++) {
+    r2 = cache[p2] * 2;
+    r3 = cache[p3] * 3;
+    r5 = cache[p5] * 5;
+    m = Math.min(r2, r3, r5);
+    if (m === r2) p2++;
+    if (m === r3) p3++;
+    if (m === r5) p5++;
+    cache[i] = m;
+  }
+  return cache[n - 1];
+}
+
+// 650. 2 Keys Keyboard
+
+function minSteps(n) {
+  if (n === 1) return 0;
+  let steps = 0;
+  let factor = 2;
+  while (n > 1) {
+    while (n % factor === 0) {
+      steps += factor;
+      n = Math.floor(n / factor);
+    }
+    factor++;
+  }
+
+  return steps;
 }
