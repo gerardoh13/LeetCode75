@@ -549,3 +549,13 @@ function strangePrinter(s) {
   }
   return min_turns_to_print(0, s.length - 1);
 }
+
+// 476. Number Complement
+
+function findComplement(num) {
+  let binary = num.toString(2).split("");
+  for (let i = 0; i < binary.length; i++) {
+    binary[i] = binary[i] === "1" ? "0" : "1"
+  }
+  return parseInt(binary.join(""), 2);
+}
