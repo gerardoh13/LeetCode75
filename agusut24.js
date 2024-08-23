@@ -555,25 +555,25 @@ function strangePrinter(s) {
 function findComplement(num) {
   let binary = num.toString(2).split("");
   for (let i = 0; i < binary.length; i++) {
-    binary[i] = binary[i] === "1" ? "0" : "1"
+    binary[i] = binary[i] === "1" ? "0" : "1";
   }
   return parseInt(binary.join(""), 2);
 }
 
 // 592. Fraction Addition and Subtraction
 
-function fractionAddition(expression){
-let fractions = []
-let i = 0
-while (i < expression.length){
-  let fraction = ""
-  if (i == 0 && expression[0] == "-"){
-    fraction += expression[0]
-    i++
-  }
-  // while (){
+const gcd = (a, b) => (b ? gcd(b, a % b) : a);
 
-  // }
-  i++
-}
+function fractionAddition(expression) {
+  let [num, den] = [0, 1];
+  const fractions = expression
+    .replaceAll("-", "+-")
+    .split("+")
+    .filter((is) => is);
+  for (const fraction of fractions) {
+    const [n, d] = fraction.split("/");
+    [num, den] = [num * d + den * n, den * d];
+  }
+  const commonDev = gcd(Math.abs(num), den);
+  return `${num / commonDev}/${den / commonDev}`;
 }
