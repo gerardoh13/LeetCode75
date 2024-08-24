@@ -577,3 +577,31 @@ function fractionAddition(expression) {
   const commonDev = gcd(Math.abs(num), den);
   return `${num / commonDev}/${den / commonDev}`;
 }
+
+// 564. Find the Closest Palindrome
+
+function distance(n) {
+  let s = n + "",
+    i = 0,
+    j = s.length - 1;
+  while (i < j) {
+    if (s[i++] !== s[j--]) return 10 ** (i - 1);
+  }
+  return 0;
+}
+
+function nearestPalindromic(n) {
+  let bit = BigInt(n);
+  let num = [bit - 1n, bit + 1n];
+  while (true) {
+    let d1 = distance(num[0]);
+    if (d1 === 0) break;
+    num[0] -= BigInt(d1);
+  }
+  while (true) {
+    let d2 = distance(num[1]);
+    if (d2 === 0) break;
+    num[1] += BigInt(d2);
+  }
+  return bit - num[0] <= num[1] - bit ? String(num[0]) : String(num[1]);
+}
