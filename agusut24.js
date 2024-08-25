@@ -605,3 +605,30 @@ function nearestPalindromic(n) {
   }
   return bit - num[0] <= num[1] - bit ? String(num[0]) : String(num[1]);
 }
+
+// 145. Binary Tree Postorder Traversal
+
+function postorderTraversal(root) {
+  let res = [];
+  if (!root) return res;
+  let node = root;
+  let prevNode = null;
+  let stack = [];
+  while (node || stack.length) {
+    if (node) {
+      stack.push(node);
+      node = node.left;
+    } else {
+      node = stack[stack.length - 1];
+      if (!node.right || node.right == prevNode) {
+        res.push(node.val);
+        stack.pop();
+        prevNode = node;
+        node = null;
+      } else {
+        node = node.right;
+      }
+    }
+  }
+  return res;
+}
