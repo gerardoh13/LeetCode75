@@ -562,7 +562,7 @@ function findComplement(num) {
 
 // 592. Fraction Addition and Subtraction
 
-const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+// const gcd = (a, b) => (b ? gcd(b, a % b) : a);
 
 function fractionAddition(expression) {
   let [num, den] = [0, 1];
@@ -631,4 +631,18 @@ function postorderTraversal(root) {
     }
   }
   return res;
+}
+
+// 590. N-ary Tree Postorder Traversal
+
+function postorder(root) {
+  const res = [],
+    stack = [root];
+  while (stack.length) {
+    const curr = stack.pop();
+    if (!curr) continue;
+    res.push(curr.val);
+    stack.push(...curr.children);
+  }
+  return res.reverse();
 }
