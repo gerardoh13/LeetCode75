@@ -646,3 +646,64 @@ function postorder(root) {
   }
   return res.reverse();
 }
+
+// 1514. Path with Maximum Probability
+
+function maxProbability(n, edges, succProb, start_node, end_node) {
+  const MIN = Number.MIN_SAFE_INTEGER;
+  const m = edges.length;
+  const adjList = {};
+  const dists = new Array(n).fill(MIN);
+  for (let i = 0; i < n; i++) {
+    adjList[i] = [];
+  }
+  for (let i = 0; i < m; i++) {
+    const [u, v] = edges[i];
+    const weight = succProb[i];
+    adjList[u].push([v, weight]);
+    adjList[v].push([u, weight]);
+  }
+  const maxHeap = new MaxPriorityQueue({ priority: (x) => x[1] });
+  maxHeap.enqueue([start_node, 1]);
+  while (!maxHeap.isEmpty()) {
+    const [node, prob] = maxHeap.dequeue().element;
+    if (node === end_node) return prob;
+    if (dists[node] > prob) continue;
+    for (const [nei, weight] of adjList[node]) {
+      if (prob * weight > dists[nei]) {
+        dists[nei] = prob * weight;
+        maxHeap.enqueue([nei, dists[nei]]);
+      }
+    }
+  }
+  return 0;
+}
+
+// 1905. Count Sub Islands
+
+function countSubIslands(grid1, grid2) {
+  const R = grid2.length,
+    C = grid2[0].length;
+  function noOfNotCoveredDfs(i, j) {
+    if (i < 0 || j < 0) return 0;
+    if (i >= R || j >= C) return 0;
+    if (grid2[i][j] !== 1) return 0;
+    grid2[i][j] = 2;
+    return (
+      (grid1[i][j] === 1 ? 0 : 1) +
+      noOfNotCoveredDfs(i - 1, j) +
+      noOfNotCoveredDfs(i + 1, j) +
+      noOfNotCoveredDfs(i, j - 1) +
+      noOfNotCoveredDfs(i, j + 1)
+    );
+  }
+  let ans = 0;
+  for (let i = 0; i < R; i++) {
+    for (let j = 0; j < C; j++) {
+      if (grid2[i][j] === 1) {
+        if (noOfNotCoveredDfs(i, j) === 0) ans++;
+      }
+    }
+  }
+  return ans;
+}
