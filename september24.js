@@ -19,11 +19,6 @@ function construct2DArray(original, m, n) {
   return res;
 }
 
-let original = [1, 2, 3, 4],
-  m = 2,
-  n = 2;
-console.log(construct2DArray(original, m, n));
-
 // 1894. Find the Student that Will Replace the Chalk
 
 function chalkReplacer(chalk, k) {
@@ -45,5 +40,22 @@ function chalkReplacer(chalk, k) {
     else high = mid;
   }
   return high;
+}
+
+// 1945. Sum of Digits of String After Convert
+
+function getLucky(s, k) {
+  s = s
+    .split("")
+    .map((c) => (c.charCodeAt(0) - 96).toString())
+    .join("");
+  while (k) {
+    s = s
+      .split("")
+      .reduce((p, c) => +p + +c, 0)
+      .toString();
+    k--;
+  }
+  return +s;
 }
 
