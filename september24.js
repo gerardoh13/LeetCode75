@@ -59,3 +59,31 @@ function getLucky(s, k) {
   return +s;
 }
 
+// 874. Walking Robot Simulation
+
+function robotSim(commands, obstacles) {
+  let pos = [0, 0];
+  let dir = "n";
+  let set = new Set(obstacles.map((arr) => `${arr[0]}-${arr[1]}`));
+  let res = 0;
+  for (let command of commands) {
+    if (command === -1) {
+      dir = dir == "n" ? "e" : dir == "e" ? "s" : dir == "s" ? "w" : "n";
+    } else if (command === -2) {
+      dir = dir == "n" ? "w" : dir == "w" ? "s" : dir == "s" ? "e" : "n";
+    } else {
+      for (let j = 0; j < command; j++) {
+        let next = [...pos];
+        if (dir == "n") next[1]++;
+        else if (dir == "s") next[1]--;
+        else if (dir == "w") next[0]--;
+        else next[0]++;
+        let nextStr = `${next[0]}-${next[1]}`;
+        if (set.has(nextStr)) break;
+        else pos = [...next];
+      }
+    }
+    res = Math.max(res, pos[0] * pos[0] + pos[1] * pos[1]);
+  }
+  return res;
+}
