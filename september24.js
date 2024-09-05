@@ -87,3 +87,17 @@ function robotSim(commands, obstacles) {
   }
   return res;
 }
+
+// 2028. Find Missing Observations
+
+function missingRolls(rolls, mean, n) {
+  let res = [];
+  let mSum = rolls.reduce((p, c) => p + c, 0);
+  let target = mean * (rolls.length + n) - mSum;
+  if (target > n * 6 || target < n) return res;
+  let targetAvg = Math.floor(target / n);
+  let mod = target % n;
+  let nArr = Array(n).fill(targetAvg);
+  for (let i = 0; i < mod; i++) nArr[i]++;
+  return nArr;
+}
