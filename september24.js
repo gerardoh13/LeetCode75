@@ -101,3 +101,24 @@ function missingRolls(rolls, mean, n) {
   for (let i = 0; i < mod; i++) nArr[i]++;
   return nArr;
 }
+
+// 3217. Delete Nodes From Linked List Present in Array
+
+function modifiedList(nums, head) {
+  let set = new Set(nums);
+  let dummy = new ListNode(0, head);
+  let l = dummy;
+  let r = head;
+  debugger;
+  while (r) {
+    while (r && set.has(r.val)) {
+      l.next = r.next;
+      r = l.next;
+    }
+    if (r) {
+      l = l.next;
+      r = l.next;
+    }
+  }
+  return dummy.next;
+}
