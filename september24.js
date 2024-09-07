@@ -122,3 +122,24 @@ function modifiedList(nums, head) {
   }
   return dummy.next;
 }
+
+// 1367. Linked List in Binary Tree
+
+function isSubPath(head, root) {
+  function traverse(node) {
+    if (!node) return false;
+    if (node.val === head.val && helper(node, head)) return true;
+    return traverse(node.left) || traverse(node.right);
+  }
+  function helper(treeNode, listNode) {
+    if (!listNode) return true;
+    if (!treeNode || treeNode.val !== listNode.val) return false;
+
+    return (
+      helper(treeNode.left, listNode.next) ||
+      helper(treeNode.right, listNode.next)
+    );
+  }
+  return traverse(root);
+}
+
