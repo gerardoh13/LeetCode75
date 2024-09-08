@@ -143,3 +143,40 @@ function isSubPath(head, root) {
   return traverse(root);
 }
 
+// 725. Split Linked List in Parts
+
+function splitListToParts(head, k) {
+  let len = 0;
+  let curr = head;
+  while (curr) {
+    curr = curr.next;
+    len++;
+  }
+  let mod = len % k;
+  let base = Math.floor(len / k);
+  curr = head;
+  let partHead = head;
+  let partTail = head;
+  let res = Array(k).fill(null);
+  for (let i = 0; i < k; i++) {
+    if (!mod && !curr) continue;
+    curr = curr.next;
+    if (base) {
+      for (let j = 0; j < base - 1; j++) {
+        curr = curr.next;
+        partTail = partTail.next;
+      }
+      if (mod) {
+        curr = curr.next;
+        partTail = partTail.next;
+        mod--;
+      }
+    }
+    res[i] = partHead;
+    partHead = curr;
+    partTail.next = null;
+    partTail = curr;
+    if (mod && !base) mod--;
+  }
+  return res;
+}
