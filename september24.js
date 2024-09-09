@@ -1,3 +1,10 @@
+class ListNode {
+  constructor(val, next) {
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
+  }
+}
+
 // 2022. Convert 1D Array Into 2D Array
 
 function construct2DArray(original, m, n) {
@@ -177,6 +184,46 @@ function splitListToParts(head, k) {
     partTail.next = null;
     partTail = curr;
     if (mod && !base) mod--;
+  }
+  return res;
+}
+
+// 2326. Spiral Matrix IV
+
+function spiralMatrix(m, n, head) {
+  let res = Array(m)
+    .fill()
+    .map(() => Array(n).fill(-1));
+  let node = head;
+  let top = 0;
+  let right = n - 1;
+  let bottom = m - 1;
+  let left = 0;
+  while (node) {
+    for (let i = left; i <= right; i++) {
+      res[top][i] = node.val;
+      node = node.next;
+      if (!node) return res;
+    }
+    top++;
+    for (let i = top; i <= bottom; i++) {
+      res[i][right] = node.val;
+      node = node.next;
+      if (!node) return res;
+    }
+    right--;
+    for (let i = right; i >= left; i--) {
+      res[bottom][i] = node.val;
+      node = node.next;
+      if (!node) return res;
+    }
+    bottom--;
+    for (let i = bottom; i >= top; i--) {
+      res[i][left] = node.val;
+      node = node.next;
+      if (!node) return res;
+    }
+    left++;
   }
   return res;
 }
