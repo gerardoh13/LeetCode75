@@ -39,6 +39,8 @@ function gcd(a, b) {
   return a;
 }
 
+// const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+
 // 1431. Kids With the Greatest Number of Candies
 
 function kidsWithCandies(candies, extraCandies) {

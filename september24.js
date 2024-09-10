@@ -227,3 +227,16 @@ function spiralMatrix(m, n, head) {
   }
   return res;
 }
+
+// 2807. Insert Greatest Common Divisors in Linked List
+
+function insertGreatestCommonDivisors(head) {
+  if (!head.next) return head;
+  let [l, r] = [head, head.next];
+  const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+  while (r) {
+    l.next = new ListNode(gcd(l.val, r.val), r);
+    [l, r] = [r, r.next]
+  }
+  return head;
+}
