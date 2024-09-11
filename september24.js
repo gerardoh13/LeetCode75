@@ -236,7 +236,19 @@ function insertGreatestCommonDivisors(head) {
   const gcd = (a, b) => (b ? gcd(b, a % b) : a);
   while (r) {
     l.next = new ListNode(gcd(l.val, r.val), r);
-    [l, r] = [r, r.next]
+    [l, r] = [r, r.next];
   }
   return head;
+}
+
+// 2220. Minimum Bit Flips to Convert Number
+
+function minFlipBits(start, goal) {
+  let xorRes = start ^ goal;
+  let count = 0;
+  while (xorRes > 0) {
+    count += xorRes & 1;
+    xorRes >>= 1;
+  }
+  return count;
 }
