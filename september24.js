@@ -252,3 +252,21 @@ function minFlipBits(start, goal) {
   }
   return count;
 }
+
+// 1684. Count the Number of Consistent Strings
+
+function countConsistentStrings(allowed, words) {
+  let res = 0;
+  let set = new Set(allowed);
+  for (let word of words) {
+    let consistent = true;
+    for (let char of word) {
+      if (!set.has(char)) {
+        consistent = false;
+        break;
+      }
+    }
+    if (consistent) res++;
+  }
+  return res;
+}
