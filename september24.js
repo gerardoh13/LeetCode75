@@ -270,3 +270,20 @@ function countConsistentStrings(allowed, words) {
   }
   return res;
 }
+
+// 1310. XOR Queries of a Subarray
+
+function was(arr, queries) {
+  let xors = new Array(arr.length).fill(0);
+  xors[0] = arr[0];
+  for (let i = 1; i < arr.length; i++) {
+    xors[i] = xors[i - 1] ^ arr[i];
+  }
+  let res = [];
+  for (let query of queries) {
+    let [L, R] = query;
+    if (L === 0) res.push(xors[R]);
+    else res.push(xors[L - 1] ^ xors[R]);
+  }
+  return res;
+}
