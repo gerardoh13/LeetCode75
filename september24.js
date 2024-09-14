@@ -287,3 +287,17 @@ function was(arr, queries) {
   }
   return res;
 }
+
+// 2419. Longest Subarray With Maximum Bitwise AND
+
+function longestSubarray(nums) {
+  let max = Math.max(...nums);
+  let [res, count] = [0, 0];
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] === max) count++;
+    else count = 0;
+    res = Math.max(count, res);
+  }
+  return res;
+}
+
