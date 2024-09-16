@@ -317,6 +317,17 @@ function findTheLongestSubstring(s) {
     if (map.has(mask)) maxLength = Math.max(maxLength, i - map.get(mask));
     else map.set(mask, i);
   }
-
   return maxLength;
 }
+
+// 539. Minimum Time Difference
+
+function findMinDifference(timePoints) {
+  let res = 1441;
+  let mins = timePoints.map((t) => +(t.slice(0, 2) * 60) + +t.slice(3));
+  mins.sort((a, b) => a - b);
+  for (let i = 0; i < mins.length - 1; i++)
+    res = Math.min(res, mins[i + 1] - mins[i]);
+  return Math.min(res, 1440 - mins[mins.length - 1] + mins[0]);
+}
+
