@@ -331,3 +331,24 @@ function findMinDifference(timePoints) {
   return Math.min(res, 1440 - mins[mins.length - 1] + mins[0]);
 }
 
+// 884. Uncommon Words from Two Sentences
+
+function uncommonFromSentences(s1, s2) {
+  let badSet = new Set();
+  let goodSet = new Set();
+  for (let word of s1.split(" ")) {
+    if (badSet.has(word)) continue;
+    if (goodSet.has(word)) {
+      badSet.add(word);
+      goodSet.delete(word);
+    } else goodSet.add(word);
+  }
+  for (let word of s2.split(" ")) {
+    if (badSet.has(word)) continue;
+    if (goodSet.has(word)) {
+      badSet.add(word);
+      goodSet.delete(word);
+    } else goodSet.add(word);
+  }
+  return Array.from(goodSet);
+}
