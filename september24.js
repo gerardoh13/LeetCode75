@@ -411,3 +411,17 @@ function kmp(txt, patt) {
   }
   return pi[newString.length - 1];
 }
+
+// 386. Lexicographical Numbers
+
+function lexicalOrder(n) {
+  let res = [];
+  function helper(x) {
+    if (x > n) return;
+    res.push(x);
+    x = x * 10;
+    for (let i = 0; i < 10; i++) helper(x + i);
+  }
+  for (let i = 1; i < 10; i++) helper(i);
+  return res;
+}
