@@ -451,3 +451,22 @@ function findKthNumber(n, k) {
   }
   return num;
 }
+
+// 2707. Extra Characters in a String
+
+function minExtraChar(s, dictionary) {
+  const dictionarySet = new Set(dictionary);
+  const memo = new Map();
+  const dp = (start) => {
+    if (start === s.length) return 0;
+    if (memo.has(start)) return memo.get(start);
+    let ans = dp(start + 1) + 1;
+    for (let end = start; end < s.length; end++) {
+      const curr = s.slice(start, end + 1);
+      if (dictionarySet.has(curr)) ans = Math.min(ans, dp(end + 1));
+    }
+    memo.set(start, ans);
+    return ans;
+  };
+  return dp(0);
+}
