@@ -470,3 +470,67 @@ function minExtraChar(s, dictionary) {
   };
   return dp(0);
 }
+
+// 3043. Find the Length of the Longest Common Prefix
+
+function longestCommonPrefix(arr1, arr2) {
+  let set = new Set();
+  for (let num of arr1) {
+    let str = num.toString();
+    let prefix = "";
+    for (let char of str) {
+      prefix += char;
+      set.add(prefix);
+    }
+  }
+  let res = 0;
+  for (let num of arr2) {
+    str = num.toString();
+    let prefix = "";
+    for (let char of str) {
+      prefix += char;
+      if (set.has(prefix)) res = Math.max(res, prefix.length);
+      else break;
+    }
+  }
+  return res;
+}
+
+// 2416. Sum of Prefix Scores of Strings
+
+class TrieNode {
+  constructor() {
+    this.children = {};
+    this.prefixCount = 0;
+  }
+}
+class Trie {
+  constructor() {
+    this.root = new TrieNode();
+  }
+
+  insert(word) {
+    let node = this.root;
+    for (const char of word) {
+      if (!node.children[char]) node.children[char] = new TrieNode();
+      node = node.children[char];
+      node.prefixCount++;
+    }
+  }
+  getPrefixScore(word) {
+    let node = this.root;
+    let score = 0;
+    for (const char of word) {
+      node = node.children[char];
+      score += node.prefixCount;
+    }
+    return score;
+  }
+}
+
+function sumPrefixScores(words) {
+  const trie = new Trie();
+  for (const word of words) trie.insert(word);
+  const result = words.map((word) => trie.getPrefixScore(word));
+  return result;
+}
