@@ -534,3 +534,43 @@ function sumPrefixScores(words) {
   const result = words.map((word) => trie.getPrefixScore(word));
   return result;
 }
+
+// 729. My Calendar I
+
+class MyCalendar {
+  constructor() {
+    this.val = [];
+  }
+}
+
+MyCalendar.prototype.book = function (start, end) {
+  for (let book of this.val) {
+    if (end > book[0] && start < book[1]) return false;
+  }
+  this.val.push([start, end]);
+  return true;
+};
+
+// 731. My Calendar II
+
+class MyCalendarTwo {
+  constructor() {
+    this.calendar = [];
+    this.overlaps = [];
+  }
+}
+
+MyCalendar.prototype.book = function (start, end) {
+  for (let date of this.overlaps) {
+    if (start < date[1] && end > date[0]) return false;
+  }
+
+  for (let date of this.calendar) {
+    if (start < date[1] && end > date[0]) {
+      this.overlaps.push([Math.max(date[0], start), Math.min(date[1], end)]);
+    }
+  }
+  this.calendar.push([start, end]);
+  return true;
+};
+

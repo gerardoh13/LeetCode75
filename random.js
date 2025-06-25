@@ -82,6 +82,7 @@ function reverse(x) {
   if (neg) s = s.slice(0, s.length - 1);
   let res = neg ? +s * -1 : +s;
   if (Math.abs(res) > Math.pow(2, 31)) return 0;
+
   return res;
 }
 
@@ -224,3 +225,137 @@ function findMode(root) {
 
 // let balls = [1,1,3,3,1,1,2,2,3,1,3,2]
 // minGroupsForValidAssignment(balls);
+
+function makeChange(V) {
+  if (V < 0) {
+    console.log("Invalid input: Amount cannot be negative.");
+    return;
+  }
+  if (V === 0) {
+    console.log("No coins needed.");
+    return;
+  }
+  const coins = [25, 10, 5, 1];
+  const result = {};
+  let totalCoins = 0;
+  for (let coin of coins) {
+    if (V >= coin) {
+      let count = Math.floor(V / coin);
+      result[coin] = count;
+      totalCoins += count;
+      // V %= coin;
+      V -= count * coin;
+    }
+  }
+  for (let [coin, count] of Object.entries(result)) {
+    console.log(`${coin}c: ${count}`);
+  }
+  console.log(`Total coins: ${totalCoins}`);
+}
+
+function freqCounter(str) {
+  let strObj = {};
+  for (let char of str) {
+    strObj[char] = (strObj[char] ?? 0) + 1;
+  }
+  return strObj;
+}
+
+// function groupAnagrams(words) {
+//   const map = new Map();
+
+//   for (const word of words) {
+//     const sortedWord = [...word].sort().join("");
+//     if (!map.has(sortedWord)) {
+//       map.set(sortedWord, []);
+//     }
+//     map.get(sortedWord).push(word);
+//   }
+//   return Array.from(map.values());
+// }
+
+// Input: strs = ["act","pots","tops","cat","stop","hat"]
+
+// Output: [["hat"],["act", "cat"],["stop", "pots", "tops"]]
+
+function groupAnagrams(strs) {
+  const res = {};
+  for (let s of strs) {
+    const count = new Array(26).fill(0);
+    for (let c of s) {
+      count[c.charCodeAt(0) - "a".charCodeAt(0)] += 1;
+    }
+    const key = count.join(",");
+    if (!res[key]) {
+      res[key] = [];
+    }
+    res[key].push(s);
+  }
+  return Object.values(res);
+}
+
+function coinChange(coins, amount) {
+  const dp = Array(amount + 1).fill(Infinity);
+  dp[0] = 0;
+  for (let coin of coins) {
+    for (let i = coin; i <= amount; i++) {
+      dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+    }
+  }
+  return dp[amount] === Infinity ? -1 : dp[amount];
+}
+
+function titleCase(str) {
+  return str.replace(/\b\w/g, (match) => match.toUpperCase());
+}
+
+function longestConsecutive(nums) {
+  let numSet = new Set();
+  let longestLength = 0;
+  for (let i = 0; i < nums.length; i++) {
+    numSet.add(nums[i]);
+  }
+
+  for (let num of numSet) {
+    if (!numSet.has(num - 1)) {
+      let currentNum = num;
+      let count = 1;
+      while (numSet.has(currentNum + 1)) {
+        count++;
+        currentNum = currentNum + 1;
+      }
+
+      longestLength = Math.max(longestLength, count);
+    }
+  }
+
+  return longestLength;
+}
+
+// 31. Next Permutation
+function nextPermutation(nums) {
+  if (nums.length < 2) return nums;
+
+  let i = nums.length - 2;
+  let j = i + 1;
+  debugger;
+  while (i >= 0 && nums[i] >= nums[i + 1]) i--;
+
+  if (i >= 0) {
+    while (nums[j] <= nums[i]) {
+      j--;
+    }
+    swap(nums, i, j);
+  }
+  let l = i + 1;
+  let r = nums.length - 1;
+  while (l < r) {
+    swap(nums, l, r);
+    l++;
+    r--;
+  }
+}
+
+function swap(arr, i, j) {
+  [arr[i], arr[j]] = [arr[j], arr[i]];
+}
