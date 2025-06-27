@@ -380,3 +380,22 @@ function combinationSum(candidates, target) {
   backtrack(0, [], target);
   return res;
 }
+
+// 46. Permutations
+function permute(nums) {
+  const res = [];
+  debugger;
+  function backtrack(start) {
+    if (start === nums.length) {
+      res.push([...nums]);
+      return;
+    }
+    for (let i = start; i < nums.length; i++) {
+      swap(nums, start, i);
+      backtrack(start + 1);
+      swap(nums, start, i);
+    }
+  }
+  backtrack(0);
+  return res;
+}
