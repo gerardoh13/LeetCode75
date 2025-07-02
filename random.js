@@ -399,3 +399,22 @@ function permute(nums) {
   backtrack(0);
   return res;
 }
+
+// 594. Longest Harmonious Subsequence
+
+function findLHS(nums) {
+  nums.sort((a, b) => a - b);
+  let [max, i, j] = [0, 0, 1];
+  while (j < nums.length) {
+    if (nums[j] - nums[i] === 1) {
+      let count = j - i + 1;
+      max = Math.max(count, max);
+      j++;
+    } else if (nums[j] - nums[i] > 1) {
+      i++;
+    } else {
+      j++;
+    }
+  }
+  return max;
+}
