@@ -418,3 +418,16 @@ function findLHS(nums) {
   }
   return max;
 }
+
+// 94. Binary Tree Inorder Traversal
+function inorderTraversal(root) {
+    let res = []
+    function dfs(node){
+        if (!node) return
+        dfs(node.left)
+        res.push(node.val)
+        dfs(node.right)
+    }
+    dfs(root)
+    return res;
+}
