@@ -421,13 +421,52 @@ function findLHS(nums) {
 
 // 94. Binary Tree Inorder Traversal
 function inorderTraversal(root) {
-    let res = []
-    function dfs(node){
-        if (!node) return
-        dfs(node.left)
-        res.push(node.val)
-        dfs(node.right)
+  let res = [];
+  function dfs(node) {
+    if (!node) return;
+    dfs(node.left);
+    res.push(node.val);
+    dfs(node.right);
+  }
+  dfs(root);
+  return res;
+}
+
+// 3304. Find the Kth Largest Element in an Array
+function kthCharacter(k) {
+  let word = "a";
+  const dict = {
+    a: "b",
+    b: "c",
+    c: "d",
+    d: "e",
+    e: "f",
+    f: "g",
+    g: "h",
+    h: "i",
+    i: "j",
+    j: "k",
+    k: "l",
+    l: "m",
+    m: "n",
+    n: "o",
+    o: "p",
+    p: "q",
+    q: "r",
+    r: "s",
+    s: "t",
+    t: "u",
+    u: "v",
+    v: "w",
+    w: "x",
+    y: "z",
+    z: "a",
+  };
+  while (word.length < k) {
+    for (let char of word) {
+      word += dict[char];
+      if (word.length >= k) break;
     }
-    dfs(root)
-    return res;
+  }
+  return word[k - 1];
 }
